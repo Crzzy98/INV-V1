@@ -1,0 +1,9 @@
+<form class="search-bar" (ngSubmit)="onSubmit()">
+    <input #userInput type="text" placeholder="Search Positions..." />
+</form>
+@if(positionsFound){
+    <!-- display position results in paginations style -->
+}
+@else{
+    <h3>Results Will Display Here</h3>
+}

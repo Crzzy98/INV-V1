@@ -1,0 +1,16 @@
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Evenly spaces out the elements */
+    align-items: center; /* Centers items vertically */
+    width: 100vw;
+    height: 50px;
+    background-color: black;
+    color: white;
+    padding: 0 2vw; /* Adds padding to the sides */
+}
+
+.navbar > a {
+    flex-grow: 1; /* Allows the <a> elements to grow and fill the available space */
+    text-align: center; /* Centers the text within each <a> */
+    white-space: nowrap; /* Prevents text wrapping */
+}
