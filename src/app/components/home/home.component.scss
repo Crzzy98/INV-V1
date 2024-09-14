@@ -1,0 +1,14 @@
+.home-container{
+    justify-content: center;
+    width: 50vw;
+    align-items: center;
+    background-color: black;
+    color:greenyellow 
+}
+
+.home-container > button{
+    background-color: black;
+    border-color: white;
+    border-radius: .5px;
+    color: green;
+}

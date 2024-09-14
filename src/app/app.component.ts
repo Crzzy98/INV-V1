@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AlpacaService } from './services/alpaca.service';
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -14,6 +15,5 @@ export class AppComponent implements OnInit{
   alpaca = inject(AlpacaService)
 
   ngOnInit(): void {
-    this.alpaca.getAccountStatus()
   }
 }
