@@ -11,7 +11,7 @@ const API_URL = 'https://api.alpaca.markets'
 app.use(cors());
 app.use(express.json())
 
-// Function to get account status
+// Function to GET ACCOUNT STATUS
 async function getAccountStatus() {
   try {
     const account = await alpaca.getAccount()
@@ -43,7 +43,7 @@ app.get("/account-status", async (req, res) => {
 
 app.listen(port,
   () => {
-    console.log("Srver listening on port: " + port)
+    console.log("Server listening on port: " + port)
     getAccountStatus()
   }
 )
