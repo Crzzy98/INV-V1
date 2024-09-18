@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "./components/navbar/navbar.component";
-import { AlpacaService } from './services/alpaca.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,6 @@ import { AlpacaService } from './services/alpaca.service';
 })
 export class AppComponent implements OnInit{
   title = 'INV-V1';
-  alpaca = inject(AlpacaService)
 
   ngOnInit(): void {
   }

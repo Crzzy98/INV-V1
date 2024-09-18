@@ -21,6 +21,22 @@ async function getAccountStatus() {
   }
 }
 
+const getActiveAssets = async () =>{
+    alpaca
+    .getAssets({
+      status: "active",
+    })
+    .then((activeAssets) => {
+      // Filter the assets down to just those on NASDAQ.
+      const nasdaqAssets = activeAssets.filter(
+        (asset) => asset.exchange == "NASDAQ"
+      );
+      console.log("All active assets: " + activeAssets)
+      console.log(nasdaqAssets);
+    });
+} 
+
 module.exports = {
   getAccountStatus,
+  getActiveAssets
 };

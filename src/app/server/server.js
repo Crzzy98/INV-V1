@@ -12,7 +12,7 @@ const API_URL = 'https://api.alpaca.markets'
 const alpacaService = require("./alpaca.service.js")
 
 //GET ACCOUNT STATUS
-const { getAccountStatus } = alpacaService
+const { getAccountStatus, getActiveAssets } = alpacaService
 
 //Middleware-0
 app.use(cors());
@@ -25,6 +25,16 @@ app.get("/account-status", async (req, res) => {
     res.json({ message: "Account status checked.", account });
   } catch (error) {
     res.status(500).json({ message: "Error fetching account status." });
+  }
+});
+
+app.get("/active-assets", async (req, res) => {
+  try {
+    const activeAssets = await getActiveAssets();
+    res.json({ message: "Active assets fetched: " + activeAssets });
+    console.log("Active Assets: " + JSON.stringify(activeAssets)) 
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching active assets." });
   }
 });
 
