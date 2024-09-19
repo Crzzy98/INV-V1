@@ -12,7 +12,7 @@ const API_URL = 'https://api.alpaca.markets'
 const alpacaService = require("./alpaca.service.js")
 
 //GET ACCOUNT STATUS
-const { getAccountStatus, getActiveAssets } = alpacaService
+const { getAccountStatus, getActiveAssets} = alpacaService
 
 //Middleware-0
 app.use(cors());
@@ -30,9 +30,16 @@ app.get("/account-status", async (req, res) => {
 
 app.get("/active-assets", async (req, res) => {
   try {
-    const activeAssets = await getActiveAssets();
-    res.json({ message: "Active assets fetched: " + activeAssets });
-    console.log("Active Assets: " + JSON.stringify(activeAssets)) 
+    const fetchedActiveAssets = await getActiveAssets()
+    .then((activeAssets) => {
+      // Filter the assets down to just those on NASDAQ.
+      const nasdaqAssets = activeAssets.filter(
+        (asset) => asset.exchange == "NASDAQ"
+      );
+      res.json(activeAssets);
+      console.log("All active assets: " + JSON.stringify(activeAssets))
+      // console.log( "NAS ASSETS: " + nasdaqAssets + "End of asset list" );
+    });
   } catch (error) {
     res.status(500).json({ message: "Error fetching active assets." });
   }

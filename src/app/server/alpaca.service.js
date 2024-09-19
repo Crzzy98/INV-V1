@@ -1,5 +1,6 @@
 const alpaca = require('../alpaca.config.js');
 
+let activeAssets 
 // Function to GET ACCOUNT STATUS
 async function getAccountStatus() {
   try {
@@ -22,21 +23,15 @@ async function getAccountStatus() {
 }
 
 const getActiveAssets = async () =>{
-    alpaca
+    return alpaca
     .getAssets({
       status: "active",
     })
-    .then((activeAssets) => {
-      // Filter the assets down to just those on NASDAQ.
-      const nasdaqAssets = activeAssets.filter(
-        (asset) => asset.exchange == "NASDAQ"
-      );
-      console.log("All active assets: " + activeAssets)
-      console.log(nasdaqAssets);
-    });
+   
 } 
 
 module.exports = {
   getAccountStatus,
-  getActiveAssets
+  getActiveAssets,
+  activeAssets
 };
