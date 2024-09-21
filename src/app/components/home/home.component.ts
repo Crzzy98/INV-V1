@@ -3,16 +3,16 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { PositionComponent } from '../position/position.component';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, RouterModule],
+  imports: [NavbarComponent, RouterModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-//Possibly display relevant market data on home component 
-//Yahoo finance api 
+
 export class HomeComponent {
   //set auto sell price
   //set auto buy price 
@@ -25,12 +25,30 @@ export class HomeComponent {
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
+//Variables indicating the state of 
+//asset retrieval and sign in status 
+loginAssetRetrievalStatus: boolean = false;
+
+  searchInput: string = '';
+
+  ngOnInit() {
+    this.searchForActiveAssets();
+  }
+
+  //assets dont nedd to be stored in service
+  //retrive assets using fetch req
+  //Service removed from component
+  getAssetAmt(){
+  //use then after configuring res.json in server
+  }
+
   searchForActiveAssets() {
-    console.log("Attempting to fetch active assets from API")
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    try {
-      this.http.get<any>(`${this.baseUrl}/active-assets`)
+  console.log("Attempting to fetch active assets from API");
+  const startIndex = (this.currentPage - 1) * this.itemsPerPage; //update itemsPerPage value with button click or scrolling 
+  const endIndex = startIndex + this.itemsPerPage;
+
+  try {
+    this.http.get<any>(`${this.baseUrl}/active-assets`)
       .pipe(
         map(response => {
           const responseType = typeof response;
@@ -48,24 +66,24 @@ export class HomeComponent {
             return [];
           }
         })
-      )//Cahnge this subscribe to observer element
-      .subscribe(
-        (paginatedAssets: any[]) => {
+      )
+      .subscribe({
+        next: (paginatedAssets: any[]) => {
           this.activeAssets = paginatedAssets;
           console.log("Fetched assets from home: " + JSON.stringify(this.activeAssets));
           if (this.activeAssets.length > 0 && Array.isArray(this.activeAssets)) {
-            // console.log("Active asset: " + this.activeAssets[0]);
           }
         },
-        (error) => {
-          console.log(error);
+        error: (error) => {
+          console.log("Error occurred:", error);
         },
-        () => {
+        complete: () => {
           console.log("Completed");
         }
-      );
-  }catch(error) {
-    console.log("Error while fetching assets: " + error)
+      });
+  } catch(error) {
+    console.log("Error while fetching assets: " + error);
   }
 }
+
 }

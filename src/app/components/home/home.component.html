@@ -1,6 +1,28 @@
 <div class="home-container">
-    <button routerLink="/check-positions">Check Assets</button>
-    <button>Trade Stock</button>
-    <button>News</button>
-    <button (click)="searchForActiveAssets()">Search</button>
+    <div class="home-btns">
+        <button routerLink="/check-positions">Check Assets</button>
+        <button (click)="getAssetAmt()">Trade Stock</button>
+        <button>News</button>
+    </div>
+
+    <div class="search-and-button">
+        <input type="text" placeholder="Search..." [(ngModel)]="searchInput">
+        <button (click)="searchForActiveAssets()">ENTER</button>
+    </div>
+
+    <div class="acct-status">
+        @if(loginAssetRetrievalStatus){
+           <h1>Connected to Alpaca Services</h1>
+            <img><img/>
+        }
+    </div>
+    <div  class="search-asset-box" >
+    @for(asset of activeAssets; track asset){
+        <!-- pick attributes to inclcude in limited dipslay 
+        of asset and redo position implmenntatin and implement -->
+            <h2 class="asset-name">{{asset.name}} </h2>
+            <h2 class="asset-satus">{{asset.status}} </h2>
+    }
+</div>
+
 </div>

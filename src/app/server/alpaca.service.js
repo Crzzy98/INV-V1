@@ -1,6 +1,6 @@
 const alpaca = require('../alpaca.config.js');
 
-let activeAssets 
+let activeAssets = [{}]
 // Function to GET ACCOUNT STATUS
 async function getAccountStatus() {
   try {
@@ -15,7 +15,7 @@ async function getAccountStatus() {
     // Check how much money we can use to open new positions
     console.log(`$${account.buying_power} is available as buying power.`);
 
-    return account; // Return account data for further use
+    return account; 
   } catch (error) {
     console.error("Error fetching account status:", error);
     throw error;

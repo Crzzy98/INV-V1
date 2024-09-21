@@ -3,14 +3,40 @@
     justify-content: space-between; /* Evenly spaces out the elements */
     align-items: center; /* Centers items vertically */
     width: 100vw;
-    height: 50px;
+    height: 10vh;
     background-color: black;
-    color: white;
-    padding: 0 2vw; /* Adds padding to the sides */
+    margin: 0 0 10vh 0 ;
 }
 
 .navbar > a {
     flex-grow: 1; /* Allows the <a> elements to grow and fill the available space */
-    text-align: center; /* Centers the text within each <a> */
-    white-space: nowrap; /* Prevents text wrapping */
-}
+        text-align: center; /* Centers the text within each <a> */
+        white-space: nowrap; /* Prevents text wrapping */
+        font-size: 80px;
+        font-family: 'Game';
+        color: green;
+        text-decoration: none; // Remove underline
+        position: relative; // For pseudo-element positioning
+        padding: 0 10px; // Add some padding for the borders
+
+        &:hover {
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 2px; // Width of the border
+                background-color: green; // Color of the border
+                transition: all 0.3s ease; // Smooth transition effect
+            }
+
+            &::before {
+                left: 0;
+            }
+
+            &::after {
+                right: 0;
+            }
+        }
+    }
