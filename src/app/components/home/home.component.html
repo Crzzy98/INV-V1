@@ -20,8 +20,9 @@
     @for(asset of activeAssets; track asset){
         <!-- pick attributes to inclcude in limited dipslay 
         of asset and redo position implmenntatin and implement -->
-            <h2 class="asset-name">{{asset.name}} </h2>
-            <h2 class="asset-satus">{{asset.status}} </h2>
+            <!-- <h2 class="asset-name">{{asset.name}} </h2>
+            <h2 class="asset-satus">{{asset.status}} </h2> -->
+            <app-position assetData={{asset}} />
     }
 </div>
 

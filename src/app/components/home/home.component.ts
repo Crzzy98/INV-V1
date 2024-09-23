@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, RouterModule, FormsModule],
+  imports: [NavbarComponent, RouterModule, FormsModule, PositionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -35,13 +35,11 @@ loginAssetRetrievalStatus: boolean = false;
     this.searchForActiveAssets();
   }
 
-  //assets dont nedd to be stored in service
-  //retrive assets using fetch req
-  //Service removed from component
   getAssetAmt(){
   //use then after configuring res.json in server
   }
 
+  //Add funct to dynamically update search results as user types 
   searchForActiveAssets() {
   console.log("Attempting to fetch active assets from API");
   const startIndex = (this.currentPage - 1) * this.itemsPerPage; //update itemsPerPage value with button click or scrolling 

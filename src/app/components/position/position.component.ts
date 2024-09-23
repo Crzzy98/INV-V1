@@ -9,7 +9,7 @@ import { Component, Input } from '@angular/core';
 })
 //Component will display the info associated with an individual stock/position 
 export class PositionComponent {
-  @Input() assetData: any;
+  @Input() assetData!: any;
 
   get id() { return this.assetData.id; }
   get class() { return this.assetData.class; }
