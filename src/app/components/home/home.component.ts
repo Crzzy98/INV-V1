@@ -3,17 +3,24 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { PositionComponent } from '../position/position.component';
+import { AssetComponent } from '../../asset/asset.component';
 import { FormsModule } from '@angular/forms';
+import { AssetService } from '../../services/asset.service';
+
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, RouterModule, FormsModule, PositionComponent],
+  imports: [NavbarComponent, RouterModule, FormsModule, AssetComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 
 export class HomeComponent {
+  //State management for storing asset data???
+  //Possibly front face service for manipulating state
+  //create c for placing order(s) and configuring auto orders/sells
+  //Create graph component for visualizing market data
+
   //set auto sell price
   //set auto buy price 
   //set frequency per day of trades
@@ -24,6 +31,10 @@ export class HomeComponent {
   totalActiveAssets: number = 0;
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  isLoading: boolean = false;
+
+  assetService = inject(AssetService);
+
 
 //Variables indicating the state of 
 //asset retrieval and sign in status 
@@ -32,12 +43,32 @@ loginAssetRetrievalStatus: boolean = false;
   searchInput: string = '';
 
   ngOnInit() {
-    this.searchForActiveAssets();
-  }
+    this.assetService.fetchAllAssets();
+    this.assetService.getLoadedAssets().subscribe(assets => {
+      this.activeAssets = assets;
+    });  }
 
-  getAssetAmt(){
-  //use then after configuring res.json in server
-  }
+    onScroll(event: any) {
+      const element = event.target;
+      if (element.scrollHeight - element.scrollTop === element.clientHeight) {
+        this.loadMoreAssets();
+      }
+    }
+  
+    //Method executes when more assets are loaded into scrollable view 
+    loadMoreAssets() {
+      if (!this.isLoading) {
+        this.isLoading = true;
+        const startIndex = this.currentPage * this.itemsPerPage;
+        const endIndex = startIndex + this.itemsPerPage;
+        this.assetService.loadMoreAssets(startIndex, endIndex);
+        this.currentPage++;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000); // Simulating network delay
+      }
+    }
+  
 
   //Add funct to dynamically update search results as user types 
   searchForActiveAssets() {

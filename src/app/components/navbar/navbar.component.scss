@@ -6,6 +6,7 @@
     height: 10vh;
     background-color: black;
     margin: 0 0 10vh 0 ;
+    z-index: 1;
 }
 
 .navbar > a {
@@ -18,6 +19,7 @@
         text-decoration: none; // Remove underline
         position: relative; // For pseudo-element positioning
         padding: 0 10px; // Add some padding for the borders
+        background-color: black;
 
         &:hover {
             &::before,

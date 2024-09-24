@@ -1,15 +1,14 @@
 import { Component, Input, inject } from '@angular/core';
 import {Router} from '@angular/router';
+
 @Component({
-  selector: 'app-position',
+  selector: 'app-asset',
   standalone: true,
   imports: [],
-  templateUrl: './position.component.html',
-  styleUrl: './position.component.scss'
+  templateUrl: './asset.component.html',
+  styleUrl: './asset.component.scss'
 })
-//Component will display the info associated with an individual stock/position 
-//and controls for creating orders associated with the stock 
-export class PositionComponent {
+export class AssetComponent {
   @Input() assetData!: any;
   router = inject(Router);
 
@@ -35,3 +34,4 @@ export class PositionComponent {
   get fractionable() { return this.assetData.fractionable; }
   get attributes() { return this.assetData.attributes; }
 }
+

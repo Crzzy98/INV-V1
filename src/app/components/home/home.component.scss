@@ -1,19 +1,19 @@
-.home-container{
+.home-container {
     justify-content: center;
     width: 100vw;
-    height: 100vh;
+    max-height: 80vh;
     align-items: center;
-    // background-color: black;
-    color:greenyellow; 
-    display:flex;
+    color: greenyellow;
+    display: flex;
     flex-direction: column;
 }
-.home-btns{
+
+.home-btns {
     display: flex;
     flex-direction: row;
 }
 
-.home-btns > button{
+.home-btns>button {
     background-color: black;
     border-color: white;
     border-radius: .5px;
@@ -24,12 +24,12 @@
     height: 80px;
 }
 
-.search-and-button{
-display: flex;
-flex-direction: row;
+.search-and-button {
+    display: flex;
+    flex-direction: row;
 }
 
-.search-and-button > button{
+.search-and-button>button {
     margin: 50px 20px 50px 20px;
     height: 50px;
     width: 100px;
@@ -41,14 +41,33 @@ flex-direction: row;
     font-weight: bolder;
 }
 
-.search-and-button > input{
+.search-and-button>input {
     margin: 50px 20px 50px 20px;
     font-size: large;
 }
-.search-asset-box{
+
+.search-asset-box {
     background-color: gray;
     border: 2px solid white;
     padding: 0 20px 0 20px;
-display: flex;
-flex-direction: column;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
 }
+.searched-assets{
+    border-bottom: 2px solid green;
+    padding-bottom: 10px;
+}
+.loading-spinner {
+    text-align: center;
+    padding: 10px;
+  }
+
+//   MEDIA QUERIES
+@media screen and (max-height: 2200px) {
+    .home-container {
+        padding-top: 2vh;
+    }
+
+}
+
