@@ -18,11 +18,7 @@
     </div>
     <div  class="search-asset-box" (scroll)="onScroll($event)">
     @for(asset of activeAssets; track asset){
-        <!-- pick attributes to inclcude in limited dipslay 
-        of asset and redo position implmenntatin and implement -->
-            <!-- <h2 class="asset-name">{{asset.name}} </h2>
-            <h2 class="asset-satus">{{asset.status}} </h2> -->
-            <app-asset  class="searched-assets" assetData={{asset}} />
+            <app-asset  class="searched-assets" [assetData]="asset" />
     }
     @if(isLoading){
         <div  class="loading-spinner">Loading...</div>

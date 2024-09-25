@@ -12,8 +12,18 @@ export class AssetService {
   private allAssetsSubject = new BehaviorSubject<any[]>([]);
   private loadedAssetsSubject = new BehaviorSubject<any[]>([]);
 
-  constructor(private http: HttpClient) {}
+  //Variable containing details related to the current asset in focus in the client
+  private inFocusAsset: any = null;
 
+  constructor(private http: HttpClient) { }
+
+  setInFocusAsset(asset: any) {
+    this.inFocusAsset = asset;
+  }
+  getInFocusAsset(): any {
+    return this.inFocusAsset;
+  }
+  
   getAllAssets(): Observable<any[]> {
     return this.allAssetsSubject.asObservable();
   }

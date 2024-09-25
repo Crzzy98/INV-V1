@@ -1,5 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import {Router} from '@angular/router';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-asset',
@@ -11,12 +12,15 @@ import {Router} from '@angular/router';
 export class AssetComponent {
   @Input() assetData!: any;
   router = inject(Router);
-
+  assetService = inject(AssetService);
   //implment a Service for interacting with assets instead
   handleViewclick(){
     console.log("Navigation Attempted...")
-    this.router.navigate(['/view-asset'], 
-      { state: { assetData: this.assetData } });
+    this.assetService.setInFocusAsset(this.assetData);
+
+    this.router.navigate(['/view-asset']);
+
+      //In focus asset data passed to service
   }
   get id() { return this.assetData.id; }
   get class() { return this.assetData.class; }
