@@ -1,24 +1,31 @@
 import { Component, inject, OnInit, OnDestroy } from '@angular/core';
+import { Store, StoreModule } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { Observable } from 'rxjs';
+import { take, filter } from 'rxjs/operators';
+import { Asset } from '../../store/models/asset.model';
+import * as AssetActions from '../../store/actions/asset.actions';
+import { selectLoadedAssets, selectIsLoading } from '../../store/selectors/asset.selectors';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { AssetComponent } from '../asset/asset.component';
 import { FormsModule } from '@angular/forms';
-import { AssetService } from '../../services/asset.service';
-import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import * as AssetSelectors from '../../store/selectors/asset.selectors';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NavbarComponent, RouterModule, FormsModule, AssetComponent],
+  imports: [NavbarComponent, RouterModule,
+     FormsModule, AssetComponent, CommonModule, StoreModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  //State management for storing asset data???
-  //Possibly front face service for manipulating state
+  //Fix pagination, in scrollable
+  //add search function
   //create c for placing order(s) and configuring auto orders/sells
   //Create graph component for visualizing market data
 
@@ -26,8 +33,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   //set auto buy price 
   //set frequency per day of trades
   //view yearly trend graph of each position
-  activeAssets: any[] = [];
-  isLoading: boolean = false;
+  //Implement CSP headers
+  //SSL/TLS: Configure HTTPS for secure connections.
+  //Implement HTTP Strict Transport Security
+
+  activeAssets$: Observable<Asset[]>;
+  isLoading$: Observable<boolean>;
   currentPage: number = 1;
   itemsPerPage: number = 10;
   searchInput: string = '';
@@ -35,100 +46,55 @@ export class HomeComponent implements OnInit, OnDestroy {
   http = inject(HttpClient);
   private baseUrl: string = 'http://localhost:3000';
 
-  private assetsSubscription: Subscription | undefined;
-
-  constructor(private assetService: AssetService) { }
+  constructor(private store: Store) {
+    this.activeAssets$ = this.store.select(selectLoadedAssets);
+    this.isLoading$ = this.store.select(selectIsLoading);
+  }
 
   ngOnInit() {
     this.loadInitialAssets();
   }
 
   ngOnDestroy() {
-    if (this.assetsSubscription) {
-      this.assetsSubscription.unsubscribe();
-    }
+    // Cleanup if necessary
   }
 
   loadInitialAssets() {
-    this.isLoading = true;
-    this.assetService.fetchAllAssets();
-    this.assetsSubscription = this.assetService.getLoadedAssets().subscribe(
-      (assets) => {
-        this.activeAssets = assets;
-        this.isLoading = false;
-        this.loginAssetRetrievalStatus = true;
-      },
-      (error) => {
-        console.error('Error fetching assets:', error);
-        this.isLoading = false;
-      }
-    );
+    this.store.dispatch(AssetActions.loadAssets());
   }
 
   onScroll(event: any) {
+    console.log('Scroll event fired');
+
     const element = event.target;
     if (
-      element.scrollHeight - element.scrollTop === element.clientHeight &&
-      !this.isLoading
+      element.scrollHeight - element.scrollTop === element.clientHeight
     ) {
-      this.loadMoreAssets();
+      this.isLoading$.pipe(
+        take(1),
+        filter(isLoading => !isLoading)
+      ).subscribe(() => {
+        this.loadMoreAssets();
+      });
     }
   }
 
   loadMoreAssets() {
-    this.isLoading = true;
-    const startIndex = this.currentPage * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-
-    this.assetService.loadMoreAssets(startIndex, endIndex);
-    this.currentPage++;
-    this.isLoading = false;
+    this.store.select(AssetSelectors.selectAllAssets).pipe(
+      take(1)
+    ).subscribe(assets => {
+      const startIndex = assets.length;
+      const endIndex = startIndex + 10; // Load 10 more items, adjust as needed
+      this.store.dispatch(AssetActions.loadMoreAssets({ startIndex, endIndex }));
+    });
   }
-
 
   //Add funct to dynamically update search results as user types 
   searchForActiveAssets() {
     console.log("Attempting to fetch active assets from API");
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage; //update itemsPerPage value with button click or scrolling 
-    const endIndex = startIndex + this.itemsPerPage;
-
-    try {
-      this.http.get<any>(`${this.baseUrl}/active-assets`)
-        .pipe(
-          map(response => {
-            const responseType = typeof response;
-            console.log(`Response type: ${responseType}`);
-
-            if (Array.isArray(response)) {
-              // If the response is an array, paginate it
-              return response.slice(startIndex, endIndex);
-            } else if (typeof response === 'object' && response.data) {
-              // If the response is an object with a 'data' property, handle it accordingly
-              return response.data.slice(startIndex, endIndex);
-            } else {
-              // If the response is neither an array nor an object with a 'data' property
-              console.log('Unexpected response format');
-              return [];
-            }
-          })
-        )
-        .subscribe({
-          next: (paginatedAssets: any[]) => {
-            this.activeAssets = paginatedAssets;
-            console.log("Fetched assets from home: " + JSON.stringify(this.activeAssets));
-            if (this.activeAssets.length > 0 && Array.isArray(this.activeAssets)) {
-            }
-          },
-          error: (error) => {
-            console.log("Error occurred:", error);
-          },
-          complete: () => {
-            console.log("Completed");
-          }
-        });
-    } catch (error) {
-      console.log("Error while fetching assets: " + error);
+    if (this.searchInput.trim() !== '') {
+    } else {
+      this.loadInitialAssets();
     }
   }
-
 }

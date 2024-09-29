@@ -28,6 +28,7 @@ li{
     display: flex;
     flex-direction: row;
     justify-content: center;
+    margin-bottom: 15px;
 }
 
 .asset-btns > button{
@@ -37,3 +38,11 @@ li{
 .trade-btn{
     margin: 0 20px 0 20px;
 }
+
+.asset-name{
+    display: flex;
+    justify-content: center;
+    margin-left: 55px;
+    border-bottom: 1px solid green;
+}
+

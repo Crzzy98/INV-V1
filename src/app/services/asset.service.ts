@@ -1,9 +1,9 @@
 // asset.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { HttpClient, HttpParams} from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { map, catchError  } from 'rxjs/operators';
+import {Asset} from '../store/models/asset.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,28 +32,46 @@ export class AssetService {
     return this.loadedAssetsSubject.asObservable();
   }
 
-  fetchAllAssets() {
-    return this.http.get<any>(`${this.baseUrl}/active-assets`).pipe(
+  fetchAllAssets(): Observable<Asset[]> {
+    return this.http.get<Asset[] | { data: Asset[] }>(`${this.baseUrl}/active-assets`).pipe(
       map(response => {
         if (Array.isArray(response)) {
           return response;
-        } else if (typeof response === 'object' && response.data) {
+        } else if (typeof response === 'object' && response.data) { 
+          return response.data;
+        } else {
+          console.log('Unexpected response format');
+          return [];
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching assets:', error);
+        return of([]); // Return an empty array as Observable
+      })
+    );
+  }
+
+  searchAssets(searchTerm: string): Observable<Asset[]> {
+    let params = new HttpParams().set('search', searchTerm);
+
+    return this.http.get<{ data: Asset[] }>(`${this.baseUrl}/search-assets`, { params }).pipe(
+      map(response => {
+        if (response && Array.isArray(response.data)) {
           return response.data;
         } else {
           console.log('Unexpected response format');
           return [];
         }
       })
-    ).subscribe(assets => {
-      this.allAssetsSubject.next(assets);
-      this.loadedAssetsSubject.next(assets.slice(0, 10)); // Initial load
-    });
+    );
   }
 
-  loadMoreAssets(startIndex: number, endIndex: number) {
+
+  loadMoreAssets(startIndex: number, endIndex: number): Observable<Asset[]> {
     const currentAssets = this.allAssetsSubject.value;
     const newAssets = currentAssets.slice(startIndex, endIndex);
     const loadedAssets = [...this.loadedAssetsSubject.value, ...newAssets];
     this.loadedAssetsSubject.next(loadedAssets);
+    return this.loadedAssetsSubject.asObservable();
   }
 }

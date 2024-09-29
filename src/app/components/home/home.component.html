@@ -1,7 +1,7 @@
 <div class="home-container">
     <div class="home-btns">
         <button routerLink="/check-positions">Check Assets</button>
-        <button >Trade Stock</button>
+        <button>Trade Stock</button>
         <button>News</button>
     </div>
 
@@ -12,17 +12,16 @@
 
     <div class="acct-status">
         @if(loginAssetRetrievalStatus){
-           <h1>Connected to Alpaca Services</h1>
-            <img><img/>
+            <h1>Connected to Alpaca Services</h1>
+            <img><img />
         }
     </div>
-    <div  class="search-asset-box" (scroll)="onScroll($event)">
-    @for(asset of activeAssets; track asset){
-            <app-asset  class="searched-assets" [assetData]="asset" />
-    }
-    @if(isLoading){
-        <div  class="loading-spinner">Loading...</div>
-
-    }
+    <div class="search-asset-box" (scroll)="onScroll($event)">
+        @for(asset of activeAssets$ | async; track asset) {
+            <app-asset class="searched-assets" [assetData]="asset" />
+        }
+        @if(isLoading$){
+            <div class="loading-spinner">Loading...</div>
+        }
     </div>
 </div>
