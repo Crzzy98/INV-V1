@@ -39,6 +39,16 @@ async function handleActiveAssets(req, res) {
   }
 }
 
+// Search function
+function searchAssets(assets, searchTerm) {
+  if (!searchTerm) return assets;
+  
+  searchTerm = searchTerm.toLowerCase();
+  return assets.filter(asset => 
+    asset.symbol.toLowerCase().includes(searchTerm) ||
+    asset.name.toLowerCase().includes(searchTerm)
+  );
+}
 //SERVER ENDPOINTS
 
 //Account status endpoint
@@ -57,6 +67,42 @@ app.get("/active-assets", async (req, res) => {
     res.json(this.activeAssets)
   } catch (error) {
     res.status(500).json({ message: "Error fetching active assets." });
+  }
+});
+
+app.get('/assets', async (req, res) => {
+  try {
+    const { startIndex, endIndex } = req.query;
+    
+    // Ensure startIndex and endIndex are numbers
+    const start = parseInt(startIndex) || 0;
+    const end = parseInt(endIndex) || (start + 10); // Default to 10 items if endIndex is not provided
+    
+    // Slice the activeAssets array based on startIndex and endIndex
+    const paginatedAssets = activeAssets.slice(start, end);
+    
+    res.json(paginatedAssets);
+  } catch (error) {
+    console.error('Error fetching assets:', error);
+    res.status(500).json({ error: 'An error occurred while fetching assets' });
+  }
+});
+
+// Search assets route
+app.get('/search-assets', async (req, res) => {
+  try {
+    const searchTerm = req.query.search;
+    
+    // Use the activeAssets from alpacaService
+    const allAssets = await getActiveAssets();
+    
+    // Use the search function
+    const filteredAssets = searchAssets(allAssets, searchTerm);
+
+    res.json({ data: filteredAssets });
+  } catch (error) {
+    console.error('Search error:', error);
+    res.status(500).json({ error: 'An error occurred while searching assets' });
   }
 });
 

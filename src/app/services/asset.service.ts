@@ -2,7 +2,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { map, catchError  } from 'rxjs/operators';
+import { map, catchError,tap  } from 'rxjs/operators';
 import {Asset} from '../store/models/asset.model';
 @Injectable({
   providedIn: 'root'
@@ -27,6 +27,15 @@ export class AssetService {
   getAllAssets(): Observable<any[]> {
     return this.allAssetsSubject.asObservable();
   }
+
+  getAssets(startIndex: number, endIndex: number): Observable<Asset[]> {
+    const url = `${this.baseUrl}/assets?startIndex=${startIndex}&endIndex=${endIndex}`;
+    console.log('Service: Fetching assets from', startIndex, 'to', endIndex);
+    return this.http.get<Asset[]>(url).pipe(
+      tap(assets => console.log('Service: Received assets:', assets))
+    );
+  }
+
 
   getLoadedAssets(): Observable<any[]> {
     return this.loadedAssetsSubject.asObservable();

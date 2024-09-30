@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import * as AssetActions from '../actions/asset.actions';
 import { AssetService } from '../../services/asset.service';
 import { Asset } from '../models/asset.model';
@@ -26,12 +26,20 @@ export class AssetEffects {
       )
     );
 
-    this.loadMoreAssets$ = createEffect(() => this.actions$.pipe(
-      ofType(AssetActions.loadMoreAssets),
-      switchMap(({ startIndex, endIndex }) => this.assetService.loadMoreAssets(startIndex, endIndex).pipe(
-        map(assets => AssetActions.loadMoreAssetsSuccess({ assets }))
-      ))
-    ));
+    this.loadMoreAssets$ = createEffect(() =>
+      this.actions$.pipe(
+        ofType(AssetActions.loadMoreAssets),
+        tap(action => console.log('Effect: Loading more assets, startIndex:', action.startIndex, 'endIndex:', action.endIndex)),
+        switchMap(({ startIndex, endIndex }) =>
+          this.assetService.getAssets(startIndex, endIndex).pipe(
+            map(assets => {
+              console.log('Loaded assets:', assets);
+              return AssetActions.loadMoreAssetsSuccess({ assets });
+            })
+          )
+        )
+      )
+    );
 
     this.searchAssets$ = createEffect(() => this.actions$.pipe(
       ofType(AssetActions.searchAssets),

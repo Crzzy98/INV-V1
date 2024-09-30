@@ -18,22 +18,33 @@ export const initialState: AssetState = {
 export const assetReducer = createReducer(
   initialState,
   on(AssetActions.loadAssets, state => ({
-     ...state, isLoading: true })),
-  on(AssetActions.loadAssetsSuccess, (state, { assets }) => ({ 
-    ...state, 
-    allAssets: assets, 
-    loadedAssets: assets.slice(0, 10), 
-    isLoading: false 
+    ...state, isLoading: true
   })),
-  on(AssetActions.loadAssetsFailure, (state, { error }) => ({ 
-    ...state, error,
-     isLoading: false })),
-  on(AssetActions.loadMoreAssetsSuccess, (state, { assets }) => ({
+  on(AssetActions.loadAssetsSuccess, (state, { assets }) => ({
     ...state,
-    loadedAssets: [...state.loadedAssets, ...assets]
+    allAssets: assets,
+    loadedAssets: assets.slice(0, 10),
+    isLoading: false
   })),
+  on(AssetActions.loadAssetsFailure, (state, { error }) => ({
+    ...state, error,
+    isLoading: false
+  })),
+  on(AssetActions.loadMoreAssets, state => ({
+    ...state,
+    isLoading: true
+  })),
+  on(AssetActions.loadMoreAssetsSuccess, (state, { assets }) => {
+    console.log('Reducer: Adding more assets, count:', assets.length);
+    return {
+      ...state,
+      assets: [...state.assets, ...assets],
+      isLoading: false
+    };
+  }),
   on(AssetActions.searchAssetsSuccess, (state, { assets }) => ({
     ...state,
-    loadedAssets: assets
+    loadedAssets: assets,
+    isLoading: false
   }))
 );

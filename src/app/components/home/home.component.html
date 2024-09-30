@@ -6,8 +6,9 @@
     </div>
 
     <div class="search-and-button">
-        <input type="text" placeholder="Search..." [(ngModel)]="searchInput">
-        <button (click)="searchForActiveAssets()">ENTER</button>
+        <input type="text" placeholder="Search Assets..."
+         (input)="onSearchInputChange()" [(ngModel)]="searchInput">
+        <!-- <button (click)="searchForActiveAssets()">ENTER</button> -->
     </div>
 
     <div class="acct-status">
@@ -20,7 +21,7 @@
         @for(asset of activeAssets$ | async; track asset) {
             <app-asset class="searched-assets" [assetData]="asset" />
         }
-        @if(isLoading$){
+        @if(isLoading$ | async){
             <div class="loading-spinner">Loading...</div>
         }
     </div>
