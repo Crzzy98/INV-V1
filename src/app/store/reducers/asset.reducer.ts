@@ -30,15 +30,17 @@ export const assetReducer = createReducer(
     ...state, error,
     isLoading: false
   })),
-  on(AssetActions.loadMoreAssets, state => ({
+  on(AssetActions.loadMoreAssets, (state, {startIndex, endIndex}) => ({
     ...state,
-    isLoading: true
+    isLoading: true, 
+    loadedAssets: [...state.loadedAssets, ...state.assets.slice(startIndex, endIndex)]
   })),
   on(AssetActions.loadMoreAssetsSuccess, (state, { assets }) => {
     console.log('Reducer: Adding more assets, count:', assets.length);
     return {
       ...state,
       assets: [...state.assets, ...assets],
+      loadedAssets: [...state.loadedAssets, ...assets],
       isLoading: false
     };
   }),

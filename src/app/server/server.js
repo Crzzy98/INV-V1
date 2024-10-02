@@ -15,6 +15,7 @@ const { getAccountStatus, getActiveAssets, activeAssets } = alpacaService
 
 app.use(cors());
 app.use(express.json())
+
 //HANDLERS
 async function handleAccountStatus(req, res) {
   try {
@@ -79,7 +80,7 @@ app.get('/assets', async (req, res) => {
     const end = parseInt(endIndex) || (start + 10); // Default to 10 items if endIndex is not provided
     
     // Slice the activeAssets array based on startIndex and endIndex
-    const paginatedAssets = activeAssets.slice(start, end);
+    const paginatedAssets = this.activeAssets.slice(start, end);
     
     res.json(paginatedAssets);
   } catch (error) {
