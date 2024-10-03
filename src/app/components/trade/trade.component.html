@@ -1,0 +1,30 @@
+<div class="trade-page">
+    <div class="asset-container">
+        <app-view-asset class="trade-asset"></app-view-asset>
+    </div>
+    @if(!shouldShowConfirmationPanel){
+        @if(!switchBtnClicked){
+            <h2>Enter the amount of shares you wish to purchase:</h2>
+            <input [(ngModel)]="tradeInput" type="text" placeholder="Shares amount..." />
+            <button (click)="openTradeConfirmation()">ENTER</button>
+            <h1>- OR -</h1>
+            <button (click)="switchButtonClicked()" class="switch-btn">Enter a percentage of the stock you wish to purchase:</button>
+        }
+        @else{
+            <h2>Enter a percentage of the stock you wish to purchase:</h2>
+            <input [(ngModel)]="tradeInput" type="text" placeholder="Percentage..." />
+            <button (click)="openTradeConfirmation()">ENTER</button>
+            <h1>- OR -</h1>
+            <button class="switch-btn">Enter the amount of shares you wish to purchase:</button>
+        }
+    
+    }
+    @else{
+        <div class="confirmation">
+            <h2>Would you like to submit this trade?</h2>
+           <button (click)="confirmTrade()">YES</button>
+           <button (click)="denyTrade()">NO</button>
+        </div>
+    }
+
+</div>

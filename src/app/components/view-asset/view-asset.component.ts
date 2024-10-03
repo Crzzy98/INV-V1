@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AssetService } from '../services/asset.service';
+import { AssetService } from '../../services/asset.service';
 
 @Component({
   selector: 'app-view-asset',
