@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { ViewAssetComponent } from '../view-asset/view-asset.component';
 import {FormsModule } from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-trade',
@@ -18,6 +19,8 @@ export class TradeComponent {
   percentageTradeStyleChosen: boolean = false; 
   tradeInput: string = '';
   shouldShowConfirmationPanel:boolean = true
+
+  router = inject(Router);
 
   //Method exc\ecutred when button is clicked to change trading style
   switchButtonClicked() {

@@ -4,11 +4,14 @@ import { CheckPositionsComponent } from './components/check-positions/check-posi
 import { SearchPositionsComponent } from './components/search-positions/search-positions.component';
 import { ViewPositionComponent } from './components/view-position/view-position.component';
 import { ViewAssetComponent } from './components/view-asset/view-asset.component';
-
+import { TradeComponent } from './components/trade/trade.component';
+import { AutoTradeComponent } from './auto-trade/auto-trade.component';
 export const routes: Routes = [
     {path: '', component:HomeComponent, title:'Home Page'},
     {path: 'check-positions', component:CheckPositionsComponent, title:'Check Positions'},
     {path: 'search-positions', component:SearchPositionsComponent, title:'Search Positions'},
     {path: 'view-position', component:ViewPositionComponent, title:'View Position'},
     {path: 'view-asset', component:ViewAssetComponent, title:'View Asset'},
+    {path: 'trade', component:TradeComponent, title:'Trade'},
+    {path: 'auto-trade', component:AutoTradeComponent, title:'Auto Trade'}
 ];

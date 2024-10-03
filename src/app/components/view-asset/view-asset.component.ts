@@ -21,6 +21,15 @@ export class ViewAssetComponent{
     this.assetData = this.assetService.getInFocusAsset()
   }
 
+  startNormalTrade(){
+    this.router.navigate(['/trade']);
+  }
+
+  startAutoTrade(){
+    this.router.navigate(['/auto-trade']);
+
+  }
+
   get id() { return this.assetData.id; }
   get class() { return this.assetData.class; }
   get exchange() { return this.assetData.exchange; }

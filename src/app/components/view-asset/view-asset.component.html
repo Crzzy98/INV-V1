@@ -16,8 +16,8 @@
       <li class="fractionable"><strong>Fractionable:</strong> {{ fractionable ? 'Yes' : 'No' }}</li>      
     </ul>
     <div class="asset-btns">
-      <button class="trade-btn">TRADE</button>
-      <button class="auto-trade-btn">Setup Auto Trade</button>
+      <button (click)="startNormalTrade()" class="trade-btn">TRADE</button>
+      <button (click)="startAutoTrade()" class="auto-trade-btn">Setup Auto Trade</button>
     </div>
 
 </div>

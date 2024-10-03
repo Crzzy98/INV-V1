@@ -1,0 +1,20 @@
+.trade-page{
+    justify-content: center;
+    align-items: center;
+
+    input{
+        width: 80vw;
+        height: 50px;
+    }
+
+    button{
+        width: fit-content;
+    }
+}
+
+.asset-container{
+    justify-content: center;
+    overflow-y: auto;
+    max-height: 20vh;
+}
+
