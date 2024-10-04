@@ -27,7 +27,6 @@ export class ViewAssetComponent{
 
   startAutoTrade(){
     this.router.navigate(['/auto-trade']);
-
   }
 
   get id() { return this.assetData.id; }

@@ -1,20 +1,28 @@
-.trade-page{
+.trade-page {
     justify-content: center;
     align-items: center;
+    color: green;
 
-    input{
+    input {
         width: 80vw;
         height: 50px;
     }
 
-    button{
-        width: fit-content;
+    button {
+        display: flex;
+        background-color: black;
+        border-color: white;
+        border-radius: .5px;
+        color: green;
+        margin: 0 100px 0 100px;
+        font-size: 35px;
+        width: 250px;
+        height: 80px;
     }
 }
 
-.asset-container{
+.trade-asset {
     justify-content: center;
     overflow-y: auto;
     max-height: 20vh;
 }
-

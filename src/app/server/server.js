@@ -9,14 +9,18 @@ const API_URL = 'https://api.alpaca.markets'
 
 //Service to communicate with api
 const alpacaService = require("./alpaca.service.js")
+const tradeService = require("./trade.service.js")
 
 //CUSTOM ALPACA SERVICE METHODS
 const { getAccountStatus, getActiveAssets, activeAssets } = alpacaService
 
+//CUSTOM ALPACA TRADE METHODS
+const {createOrder} = tradeService
+
 app.use(cors());
 app.use(express.json())
 
-//HANDLERS
+//ENDPOINT HANDLERS
 async function handleAccountStatus(req, res) {
   try {
     const account = await getAccountStatus();
@@ -104,6 +108,17 @@ app.get('/search-assets', async (req, res) => {
   } catch (error) {
     console.error('Search error:', error);
     res.status(500).json({ error: 'An error occurred while searching assets' });
+  }
+});
+
+//TRADE ENDPOINTS
+app.post("/create-order", async (req, res) => {
+  try {
+    const order = req.body;
+    const result = await createOrder(order);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: "Error creating order." });
   }
 });
 
