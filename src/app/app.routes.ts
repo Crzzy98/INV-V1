@@ -5,7 +5,7 @@ import { SearchPositionsComponent } from './components/search-positions/search-p
 import { ViewPositionComponent } from './components/view-position/view-position.component';
 import { ViewAssetComponent } from './components/view-asset/view-asset.component';
 import { TradeComponent } from './components/trade/trade.component';
-import { AutoTradeComponent } from './auto-trade/auto-trade.component';
+import { AutoTradeComponent } from './components/auto-trade/auto-trade.component';
 import { ViewTradeComponent } from './components/view-trade/view-trade.component';
 
 export const routes: Routes = [

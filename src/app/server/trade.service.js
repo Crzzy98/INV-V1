@@ -20,6 +20,6 @@ async function createOrder(symbol, qty, side, type, time_in_force) {
 
   //getOrders
   
-  moduke.exports = {
+  module.exports = {
     createOrder
 };

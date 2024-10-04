@@ -5,14 +5,16 @@ import {Router} from '@angular/router';
 import { TradeService } from '../../services/trade/trade.service';
 import { AssetService } from '../../services/asset.service';
 import { Trade } from '../../services/trade/trade.model';
+import { TradeViewAssetComponent } from '../trade-view-asset/trade-view-asset.component';
 
 @Component({
   selector: 'app-trade',
   standalone: true,
-  imports: [ViewAssetComponent, FormsModule],
+  imports: [ViewAssetComponent,TradeViewAssetComponent, FormsModule],
   templateUrl: './trade.component.html',
   styleUrl: './trade.component.scss'
 })
+
 export class TradeComponent {
   tradeInput: string = '';
   selectedTimeInForce!: string
@@ -20,8 +22,8 @@ export class TradeComponent {
   switchBtnClicked: boolean = false;
 
   //By default trading will be perfomred based on share amount 
-  percentageTradeStyleChosen: boolean = false; 
-  shouldShowConfirmationPanel:boolean = true
+  percentageTradeStyleChosen: boolean = false
+  shouldShowConfirmationPanel:boolean = false
 
   router = inject(Router);
   tradeService = inject(TradeService)

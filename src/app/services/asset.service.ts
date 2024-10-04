@@ -1,4 +1,3 @@
-// asset.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
@@ -7,6 +6,9 @@ import {Asset} from '../store/models/asset.model';
 @Injectable({
   providedIn: 'root'
 })
+
+//Service provides functions for manipulating fetched assets
+//Also keep track of the asset that is being "focused" on by the user
 export class AssetService {
   private baseUrl: string = 'http://localhost:3000';
   private allAssetsSubject = new BehaviorSubject<any[]>([]);
