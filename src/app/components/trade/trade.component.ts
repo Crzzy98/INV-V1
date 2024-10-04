@@ -15,6 +15,7 @@ import { Trade } from '../../services/trade/trade.model';
 })
 export class TradeComponent {
   tradeInput: string = '';
+  selectedTimeInForce!: string
 
   switchBtnClicked: boolean = false;
 
@@ -53,10 +54,18 @@ export class TradeComponent {
     if(this.tradeInput == ''){
       return
     }
-    else if(this.isNumber(this.tradeInput)){
-      this.tradeService.setinFocusTrade(new Trade({
-        
-      }))
+    else if(this.isNumber(this.tradeInput) && this.selectedTimeInForce){
+      const inFocusAsset = this.assetService.getInFocusAsset()
+
+      const newTrade: Trade = {
+        symbol: inFocusAsset.symbol,
+        qty: this.tradeInput,
+        side: 'buy',
+        type: 'market',
+        time_in_force: this.selectedTimeInForce
+      };
+      
+      this.tradeService.setinFocusTrade(newTrade)
 
     }
 

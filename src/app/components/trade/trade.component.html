@@ -6,6 +6,11 @@
         @if(!switchBtnClicked){
             <h2>Enter the amount of shares you wish to purchase:</h2>
             <input [(ngModel)]="tradeInput" type="text" placeholder="Shares amount..." />
+            <select  id="timeInForce" [(ngModel)]="selectedTimeInForce">
+                <option value="day">Day</option>
+                <option value="gtc">Good Till Canceled (GTC)</option>
+                <option value="ioc">Immediate or Cancel (IOC)</option>
+            </select>
             <button (click)="openTradeConfirmation()">ENTER</button>
             <h1>- OR -</h1>
             <button (click)="switchButtonClicked()" class="switch-btn">Enter a percentage of the stock you wish to purchase:</button>
@@ -13,6 +18,11 @@
         @else{
             <h2>Enter a percentage of the stock you wish to purchase:</h2>
             <input [(ngModel)]="tradeInput" type="text" placeholder="Percentage..." />
+            <select  id="timeInForce" [(ngModel)]="selectedTimeInForce">
+                <option value="day">Day</option>
+                <option value="gtc">Good Till Canceled (GTC)</option>
+                <option value="ioc">Immediate or Cancel (IOC)</option>
+            </select>
             <button (click)="openTradeConfirmation()">ENTER</button>
             <h1>- OR -</h1>
             <button class="switch-btn">Enter the amount of shares you wish to purchase:</button>
