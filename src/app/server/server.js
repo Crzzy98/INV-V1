@@ -10,12 +10,16 @@ const API_URL = 'https://api.alpaca.markets'
 //Service to communicate with api
 const alpacaService = require("./alpaca.service.js")
 const tradeService = require("./trade.service.js")
+const marketService = require("./market.service.js")
 
 //CUSTOM ALPACA SERVICE METHODS
 const { getAccountStatus, getActiveAssets, activeAssets } = alpacaService
 
 //CUSTOM ALPACA TRADE METHODS
 const {createOrder} = tradeService
+
+//CUSTOM ALPACA MARKET METHODS
+const {getMarketData} = marketService
 
 app.use(cors());
 app.use(express.json())
@@ -119,6 +123,22 @@ app.post("/create-order", async (req, res) => {
     res.json(result);
   } catch (error) {
     res.status(500).json({ message: "Error creating order." });
+  }
+});
+
+app.get('/market-data', async (req, res) => {
+  try {
+    const { symbols } = req.query;
+    if (!symbols) {
+      return res.status(400).json({ error: 'Symbols parameter is required' });
+    }
+
+    const symbolsArray = symbols.split(',');
+    const marketData = await marketService.getMarketData(symbolsArray);
+    res.json(marketData);
+  } catch (error) {
+    console.error('Error in market data route:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
