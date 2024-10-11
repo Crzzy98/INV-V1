@@ -2,10 +2,10 @@ const axios = require('axios');
 
 async function getMarketData(symbols, timeframe = '1Day') {
   try {
-    const response = await axios.get('https://data.alpaca.markets/v2/stocks/bars', {
+    const response = await axios.get('https://data.alpaca.markets/v2/stocks/bars/latest', {
       params: {
         symbols: symbols.join(','),
-        timeframe: timeframe
+        // timeframe: timeframe
       },
       headers: {
         'APCA-API-KEY-ID': 'AKROIH0W6WFTUXZ8IG4S',
