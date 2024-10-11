@@ -8,7 +8,7 @@ async function testMarketData() {
       }
     });
     
-    console.log('Market Data:', response.data);
+    console.log('Market Data:', JSON.stringify(response.data, null, 2) );
   } catch (error) {
     console.error('Error fetching market data:', error.message);
   }

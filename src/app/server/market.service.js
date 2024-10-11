@@ -1,5 +1,3 @@
-const Alpaca = require('@alpacahq/alpaca-trade-api');
-const alpaca = require('../alpaca.config.js')
 const axios = require('axios');
 
 async function getMarketData(symbols, timeframe = '1Day') {
@@ -17,7 +15,7 @@ async function getMarketData(symbols, timeframe = '1Day') {
 
     if (response.status === 200) {
       const data = response.data;
-      console.log('Market data retrieved successfully:', data);
+      console.log('Market data retrieved successfully:', JSON.stringify(data, null, 2));
       return data;
     } else {
       throw new Error(`API request failed with status code ${response.status}`);
