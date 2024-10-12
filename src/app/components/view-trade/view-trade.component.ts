@@ -10,5 +10,15 @@ import { Component } from '@angular/core';
 
 //Component allows for viewing and confimring submission of trade
 export class ViewTradeComponent {
+  totalShares!:number
+  selectedTimeInForce!:number
+  totalPriceOfTrade!:number
   
+  submitTradeNow(){
+
+  }
+
+  submitDelayedTrade(){
+
+  }
 }

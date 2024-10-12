@@ -26,6 +26,8 @@
         <option value="gtc">Good Till Canceled (GTC)</option>
         <option value="ioc">Immediate or Cancel (IOC)</option>
     </select>
+    <h2>REview your trade before submission. "Time in force" represents the amount of time the 
+        <br>trade will remain active while awaitng completion</h2>
     <div class="trade-btns">
         <button (click)="openTradeConfirmation()">ENTER</button>
         <h1>- OR -</h1>
@@ -40,7 +42,7 @@
         <div class="final-trade-info">
             <h1>Shares: {{tradeInput}}</h1>
             <h1>Time in force: {{selectedTimeInForce}}</h1>
-            <h1>Total price of trade: ${{totalPriceOfTrade}}</h1>
+            <h1>Total price of trade: ${{totalPriceOfTrade || ' Calculating...'}}</h1>
         </div>
         <button class="confirm-btn" (click)="confirmTrade()">YES</button>
         <button (click)="denyTrade()">NO</button>

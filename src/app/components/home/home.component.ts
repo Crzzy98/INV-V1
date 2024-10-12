@@ -23,8 +23,6 @@ import * as AssetSelectors from '../../store/selectors/asset.selectors';
 })
 export class HomeComponent implements OnInit {
 
-  //Fix pagination, in scrollable
-  //add search function
   //create c for placing order(s) and configuring auto orders/sells
   //Create graph component for visualizing market data
   //Make market data component
@@ -58,7 +56,7 @@ export class HomeComponent implements OnInit {
 
     // Set up search subscription
     this.searchSubject.pipe(
-      debounceTime(300),
+      debounceTime(100),
       distinctUntilChanged()
     ).subscribe(searchTerm => {
       if (searchTerm) {
