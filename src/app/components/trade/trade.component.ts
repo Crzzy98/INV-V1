@@ -11,7 +11,7 @@ import { firstValueFrom } from 'rxjs';
 
 interface MarketData {
   bars: {
-    [symbol: string]: Array<{
+    [symbol: string]: {
       c: number;
       h: number;
       l: number;
@@ -20,7 +20,7 @@ interface MarketData {
       t: string;
       v: number;
       vw: number;
-    }>;
+    };
   };
   next_page_token: string | null;
 }
@@ -120,9 +120,9 @@ export class TradeComponent {
           symbols: symbol
         }
       }));
-
-      if (response && response.bars && response.bars[symbol] && response.bars[symbol].length > 0) {
-        const closePrice = response.bars[symbol][0].c;
+      console.log('Market Data Response:', response);
+      if (response && response.bars && response.bars[symbol] ) {
+        const closePrice = response.bars[symbol].c;
         console.log(`${symbol} Close Price:`, closePrice);
         return closePrice;
       } else {
