@@ -25,7 +25,7 @@ async function getAccountStatus() {
 const getActiveAssets = async () =>{
     return alpaca
     .getAssets({
-      status: "active",
+      status: "active"
     })
    
 } 

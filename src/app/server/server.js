@@ -38,11 +38,13 @@ async function handleAccountStatus(req, res) {
 async function handleActiveAssets(req, res) {
   try {
     const activeAssets = await getActiveAssets();
+    
+    //Filter assets by exchange and tradability 
     const nasdaqAssets = activeAssets.filter(
-      (asset) => asset.exchange == "NASDAQ"
+      (asset) => asset.exchange == "NASDAQ" && asset.tradable == true
     );
-    console.log("All active assets: " + JSON.stringify(activeAssets));
-    return activeAssets;
+    console.log("All active assets: " + JSON.stringify(nasdaqAssets));
+    return nasdaqAssets;
   } catch (error) {
     return { status: 500, message: "Error fetching active assets." };
   }
