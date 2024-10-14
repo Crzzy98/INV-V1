@@ -67,8 +67,12 @@ export class TradeComponent {
       this.totalPriceOfTrade = this.calculateTotalCostOfTrade(parseFloat(this.tradeInput), marketPrice)
       //Record price of current trade for use in other parts of the program
       this.tradeService.setInFocusTradePrice(this.totalPriceOfTrade)
-
       console.log('New Total cost of trade:' + this.totalPriceOfTrade)
+
+      //New trade order created and set "In Focus"
+      //Confirmation page will act as final 
+      //submission barrier for submitting trade
+      this.createNewTradeOrder()
     } catch (error) {
       console.error('Error getting marlet price or calculating total cost of trade:' + error)
     }

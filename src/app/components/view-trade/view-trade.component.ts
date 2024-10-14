@@ -3,6 +3,7 @@ import { OnInit, inject } from '@angular/core';
 import { TradeService } from '../../services/trade/trade.service';
 import { HttpClient } from '@angular/common/http';
 import env from '../../../environments/environment';
+import { Trade } from '../../services/trade/trade.model';
 
 @Component({
   selector: 'app-view-trade',
@@ -13,22 +14,30 @@ import env from '../../../environments/environment';
 })
 
 //Component allows for viewing and confimring submission of trade
-export class ViewTradeComponent implements OnInit {
+export class ViewTradeComponent {
   totalShares!:number
   selectedTimeInForce!:string
   totalPriceOfTrade!:number
-  
+  inFocusTrade:Trade | null = null; // Define obj props inline/ try execution using constructor
+
   tradeService = inject(TradeService)
   http = inject(HttpClient)
 
-  ngOnInit(): void {
+  constructor() {
     this.initializeViewTradeProps()
   }
   initializeViewTradeProps(){
-    this.totalPriceOfTrade = this.tradeService.getInFocusTradePrice()
-    this.totalShares = parseFloat(this.tradeService.getinFocusTrade().qty)
-    this.selectedTimeInForce = this.tradeService.getinFocusTrade().time_in_force
+    this.inFocusTrade = this.tradeService.getinFocusTrade();
+
+    if (this.inFocusTrade) {
+      this.totalPriceOfTrade = this.tradeService.getInFocusTradePrice();
+      this.totalShares = parseFloat(this.inFocusTrade.qty) || 0;
+      this.selectedTimeInForce = this.inFocusTrade.time_in_force || '';
+    } else {
+      console.warn('No trade in focus');
+    }
   }
+
   submitTradeNow(){
     try{
       this.http.post(env.serverUrl + '/create-order',
