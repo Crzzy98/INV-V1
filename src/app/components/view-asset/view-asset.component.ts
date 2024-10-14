@@ -11,7 +11,7 @@ import { AssetService } from '../../services/asset.service';
 })
 
 //Component serves as view for "in Focus" asset
-//The asset has bee nselected from the list on the main page
+//The asset has been selected from the list on the main page
 export class ViewAssetComponent{
   router = inject(Router);
   assetData: any;

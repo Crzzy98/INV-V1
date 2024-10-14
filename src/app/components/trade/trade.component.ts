@@ -8,6 +8,7 @@ import { Trade } from '../../services/trade/trade.model';
 import { TradeViewAssetComponent } from '../trade-view-asset/trade-view-asset.component';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import env from '../../../environments/environment';
 
 interface MarketData {
   bars: {
@@ -43,7 +44,6 @@ export class TradeComponent {
   percentageTradeStyleChosen: boolean = false
   shouldShowConfirmationPanel: boolean = false
   totalPriceOfTrade: number = 0
-
   router = inject(Router);
   tradeService = inject(TradeService)
   assetService = inject(AssetService)
@@ -65,6 +65,8 @@ export class TradeComponent {
 
       //Calculate total cost of trade
       this.totalPriceOfTrade = this.calculateTotalCostOfTrade(parseFloat(this.tradeInput), marketPrice)
+      //Record price of current trade for use in other parts of the program
+      this.tradeService.setInFocusTradePrice(this.totalPriceOfTrade)
 
       console.log('New Total cost of trade:' + this.totalPriceOfTrade)
     } catch (error) {
@@ -115,7 +117,7 @@ export class TradeComponent {
 
   async getMarketPrice(symbol: string): Promise<number> {
     try {
-      const response = await firstValueFrom(this.http.get<MarketData>('http://localhost:3000/market-data', {
+      const response = await firstValueFrom(this.http.get<MarketData>(env.serverUrl + '/market-data', {
         params: {
           symbols: symbol
         }

@@ -1,8 +1,9 @@
 const Alpaca = require('@alpacahq/alpaca-trade-api')
+const env = require('../environments/environment');
 
  const alpaca = new Alpaca({
-    keyId: 'AKROIH0W6WFTUXZ8IG4S',
-    secretKey: 'dts1irGGvZM5CNdPK9bs5RMrwV8dHT9zAKIVogfy',
+    keyId: env.keyId,
+    secretKey: env.secretKey,
     // paper: true,
   })
 

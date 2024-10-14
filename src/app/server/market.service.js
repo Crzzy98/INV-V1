@@ -1,4 +1,5 @@
 const axios = require('axios');
+const env = require('../../environments/environment');
 
 async function getMarketData(symbols, timeframe = '1Day') {
   try {
@@ -8,8 +9,8 @@ async function getMarketData(symbols, timeframe = '1Day') {
         // timeframe: timeframe
       },
       headers: {
-        'APCA-API-KEY-ID': 'AKROIH0W6WFTUXZ8IG4S',
-        'APCA-API-SECRET-KEY': 'dts1irGGvZM5CNdPK9bs5RMrwV8dHT9zAKIVogfy'
+        'APCA-API-KEY-ID': env.keyId,
+        'APCA-API-SECRET-KEY': env.secretKey
       }
     });
 

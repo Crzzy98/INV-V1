@@ -12,6 +12,7 @@ import { AssetComponent } from '../asset/asset.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import * as AssetSelectors from '../../store/selectors/asset.selectors';
+import env from '../../../environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -41,9 +42,11 @@ export class HomeComponent implements OnInit {
   currentPage: number = 1;
   itemsPerPage: number = 10;
   searchInput: string = '';
+  debounceTimeInMilliseconds: number = 100
   loginAssetRetrievalStatus: boolean = false;
+
+
   http = inject(HttpClient);
-  private baseUrl: string = 'http://localhost:3000';
   private searchSubject: Subject<string> = new Subject<string>();
 
   constructor(private store: Store) {
@@ -56,7 +59,7 @@ export class HomeComponent implements OnInit {
 
     // Set up search subscription
     this.searchSubject.pipe(
-      debounceTime(100),
+      debounceTime(this.debounceTimeInMilliseconds),
       distinctUntilChanged()
     ).subscribe(searchTerm => {
       if (searchTerm) {
@@ -116,5 +119,4 @@ export class HomeComponent implements OnInit {
     // Debounce the search to avoid too many API calls
     this.searchSubject.next(this.searchInput);
   }
-
 }
