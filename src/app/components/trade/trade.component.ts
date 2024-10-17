@@ -90,13 +90,15 @@ export class TradeComponent {
   }
 
   //New trade order is created and sent to service
-  async createNewTradeOrder() {
+  createNewTradeOrder() {
 
     if (this.tradeInput == '') {
+      console.log("No trade input found")
       return
     }
-    else if (this.isNumber(this.tradeInput) && this.selectedTimeInForce) {
+    else if (this.isNumber(parseFloat(this.tradeInput)) && this.selectedTimeInForce) {
       const inFocusAsset = this.assetService.getInFocusAsset()
+      console.log("trade input was number")
 
       const newTrade: Trade = {
         symbol: inFocusAsset.symbol,
@@ -106,7 +108,10 @@ export class TradeComponent {
         time_in_force: this.selectedTimeInForce
       };
 
-      this.tradeService.setinFocusTrade(newTrade)
+      console.log("Attempting to set in focus trade")
+      this.tradeService.setInFocusTrade(newTrade) //Current trade is put in focus by the program 
+      console.log("Finished setting in focus trade")
+
     }
   }
 

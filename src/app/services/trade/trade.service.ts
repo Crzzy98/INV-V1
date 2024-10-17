@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Trade } from './trade.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class TradeService {
   inFocusTrade!: Trade
   private inFocusTradePrice: number = 0;
 
-  setinFocusTrade(trade: Trade) {
+  setInFocusTrade(trade: Trade) {
     this.inFocusTrade = trade
   }
-  getinFocusTrade() {
+  getInFocusTrade(): Trade {
     return this.inFocusTrade
   }
 

@@ -27,7 +27,7 @@ export class ViewTradeComponent {
     this.initializeViewTradeProps()
   }
   initializeViewTradeProps(){
-    this.inFocusTrade = this.tradeService.getinFocusTrade();
+    this.inFocusTrade = this.tradeService.getInFocusTrade();
 
     if (this.inFocusTrade) {
       this.totalPriceOfTrade = this.tradeService.getInFocusTradePrice();
@@ -41,9 +41,9 @@ export class ViewTradeComponent {
   submitTradeNow(){
     try{
       this.http.post(env.serverUrl + '/create-order',
-        this.tradeService.getinFocusTrade)
+        this.tradeService.getInFocusTrade())
     }catch(err){
-
+      console.log("Error while submitting trade: " + err)
     }
   }
 
