@@ -4,6 +4,7 @@ import { TradeService } from '../../services/trade/trade.service';
 import { HttpClient } from '@angular/common/http';
 import env from '../../../environments/environment';
 import { Trade } from '../../services/trade/trade.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-view-trade',
@@ -22,10 +23,12 @@ export class ViewTradeComponent {
 
   tradeService = inject(TradeService)
   http = inject(HttpClient)
+  router = inject(Router)
 
   constructor() {
     this.initializeViewTradeProps()
   }
+
   initializeViewTradeProps(){
     this.inFocusTrade = this.tradeService.getInFocusTrade();
 
@@ -38,6 +41,7 @@ export class ViewTradeComponent {
     }
   }
 
+  // Sends "in focus" trade to server for submission
   submitTradeNow(){
     try{
       this.http.post(env.serverUrl + '/create-order',
@@ -45,9 +49,20 @@ export class ViewTradeComponent {
     }catch(err){
       console.log("Error while submitting trade: " + err)
     }
+
+    //Show trade submission success message and then redirect 
+    setTimeout(() => {
+      this.router.navigate(['/redirect'])
+    }, 1000)
   }
 
   submitDelayedTrade(){
+// Create funct for submitting delayed trade separate from auto trading
+//provide differnet selectable parameters for when the trade will be submitted 
+// including the price limit for completing the trade 
+  }
 
+  cancelTrade(){
+    this.router.navigate(['/redirect'])
   }
 }

@@ -123,6 +123,7 @@ app.post("/create-order", async (req, res) => {
     const result = await createOrder(order);
     res.json(result);
   } catch (error) {
+    console.error("Error creating order:", error);
     res.status(500).json({ message: "Error creating order." });
   }
 });

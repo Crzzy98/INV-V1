@@ -6,8 +6,8 @@
     <h1>Total price of trade: $ {{totalPriceOfTrade || 'Calculating...'}}</h1>
 </div>
 <div class="view-trade-btns" >
-    <button>CANCEL TRADE</button>
-    <button>SUBMIT TRADE</button>
+    <button (click)="cancelTrade()">CANCEL TRADE</button>
+    <button (click)="submitTradeNow()">SUBMIT TRADE</button>
 
 </div>
 </div>
