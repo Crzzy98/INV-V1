@@ -17,9 +17,10 @@ import { Router } from '@angular/router';
 //Component allows for viewing and confimring submission of trade
 export class ViewTradeComponent {
   totalShares!:number
+  inFocusTrade:Trade | null = null; // Define obj props inline/ try execution using constructor
   selectedTimeInForce!:string
   totalPriceOfTrade!:number
-  inFocusTrade:Trade | null = null; // Define obj props inline/ try execution using constructor
+  nameOfAsset!:string
 
   tradeService = inject(TradeService)
   http = inject(HttpClient)
@@ -33,6 +34,7 @@ export class ViewTradeComponent {
     this.inFocusTrade = this.tradeService.getInFocusTrade();
 
     if (this.inFocusTrade) {
+      this.nameOfAsset = this.inFocusTrade.symbol || '';
       this.totalPriceOfTrade = this.tradeService.getInFocusTradePrice();
       this.totalShares = parseFloat(this.inFocusTrade.qty) || 0;
       this.selectedTimeInForce = this.inFocusTrade.time_in_force || '';
@@ -46,6 +48,9 @@ export class ViewTradeComponent {
     try{
       this.http.post(env.serverUrl + '/create-order',
         this.tradeService.getInFocusTrade())
+        .subscribe(res => {
+          console.log("Create order response from view-trade:" + res)
+        })
     }catch(err){
       console.log("Error while submitting trade: " + err)
     }
@@ -58,7 +63,7 @@ export class ViewTradeComponent {
 
   submitDelayedTrade(){
 // Create funct for submitting delayed trade separate from auto trading
-//provide differnet selectable parameters for when the trade will be submitted 
+//provide different selectable parameters for when the trade will be submitted 
 // including the price limit for completing the trade 
   }
 
