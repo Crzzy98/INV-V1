@@ -16,7 +16,7 @@ async function createOrder(symbol, qty, side, type, time_in_force) {
     console.log('Sending order to Alpaca:', postData);
 
     // Make the POST request to the Alpaca API
-    const response = await axios.post(this.env.ordersUrl, postData, {
+    const response = await axios.post(env.ordersUrl, postData, {
       headers: {
         'accept': 'application/json',
         'content-type': 'application/json',
@@ -25,7 +25,7 @@ async function createOrder(symbol, qty, side, type, time_in_force) {
       }
     });
 
-    console.log('Order placed:', order);
+    console.log('Order placed:', postData);
     return response.data;
   } catch (error) {
     console.error('Error placing order:', error);

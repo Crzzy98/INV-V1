@@ -49,7 +49,7 @@ export class ViewTradeComponent {
       this.http.post(env.serverUrl + '/create-order',
         this.tradeService.getInFocusTrade())
         .subscribe(res => {
-          console.log("Create order response from view-trade:" + res)
+          console.log("Create order response from view-trade:" + JSON.stringify(res))
         })
     }catch(err){
       console.log("Error while submitting trade: " + err)
