@@ -8,7 +8,7 @@ import { Trade } from '../../services/trade/trade.model';
 import { TradeViewAssetComponent } from '../trade-view-asset/trade-view-asset.component';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
-import env from '../../../environments/environment';
+import env from '../../../environments/environment.js';
 
 interface MarketData {
   bars: {

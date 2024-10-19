@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OnInit, inject } from '@angular/core';
 import { TradeService } from '../../services/trade/trade.service';
 import { HttpClient } from '@angular/common/http';
-import env from '../../../environments/environment';
+import env from '../../../environments/environment.js';
 import { Trade } from '../../services/trade/trade.model';
 import { Router } from '@angular/router';
 

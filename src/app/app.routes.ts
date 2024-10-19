@@ -7,6 +7,7 @@ import { ViewAssetComponent } from './components/view-asset/view-asset.component
 import { TradeComponent } from './components/trade/trade.component';
 import { AutoTradeComponent } from './components/auto-trade/auto-trade.component';
 import { ViewTradeComponent } from './components/view-trade/view-trade.component';
+import { RedirectComponent } from './components/redirect/redirect.component';
 
 export const routes: Routes = [
     {path: '', component:HomeComponent, title:'Home Page'},
@@ -16,5 +17,6 @@ export const routes: Routes = [
     {path: 'view-asset', component:ViewAssetComponent, title:'View Asset'},
     {path: 'trade', component:TradeComponent, title:'Trade'},
     {path: 'auto-trade', component:AutoTradeComponent, title:'Auto Trade'},
-    {path: 'trade-confirmation', component:ViewTradeComponent, title:'View Trade'}
+    {path: 'trade-confirmation', component:ViewTradeComponent, title:'View Trade'},
+    {path: 'redirect', component:RedirectComponent, title:'Redirect Page'},
 ];

@@ -119,8 +119,15 @@ app.get('/search-assets', async (req, res) => {
 //TRADE ENDPOINTS
 app.post("/create-order", async (req, res) => {
   try {
-    const order = req.body;
-    const result = await createOrder(order);
+    const { symbol, qty, side, type, time_in_force } = req.body;
+    console.log("Order received by server:", req.body);
+
+    // Validate input
+    if (!symbol || !qty || !side || !type || !time_in_force) {
+      return res.status(400).json({ message: 'Missing required parameters' });
+    }
+
+    const result = await createOrder(symbol, qty, side, type, time_in_force);
     res.json(result);
   } catch (error) {
     console.error("Error creating order:", error);
