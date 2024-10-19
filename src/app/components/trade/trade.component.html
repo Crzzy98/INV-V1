@@ -1,0 +1,54 @@
+<div class="trade-page">
+    <div class="asset-container">
+        <trade-view-asset />
+    </div>
+    @if(!shouldShowConfirmationPanel){
+    @if(!switchBtnClicked){
+    <h2>Enter the amount of shares you wish to purchase:</h2>
+    <input [(ngModel)]="tradeInput" type="text" placeholder="Shares amount..." />
+    <h3>Select the time in force (TIF)*</h3>
+    <select id="timeInForce" [(ngModel)]="selectedTimeInForce">
+        <option value="day">Day</option>
+        <option value="gtc">Good Till Canceled (GTC)</option>
+        <option value="ioc">Immediate or Cancel (IOC)</option>
+    </select>
+    <h2>Review your trade before submission. "Time in force" represents the amount of time the 
+        <br>trade will remain active while awaitng fulfilment</h2>
+    <div class="trade-btns">
+        <button (click)="openTradeConfirmation()">ENTER</button>
+        <h1>- OR -</h1>
+        <button class="switch-btn">Enter the amount of shares you wish to purchase</button>
+    </div>
+    }
+    @else{
+    <h2>Enter a percentage of the stock you wish to purchase</h2>
+    <input [(ngModel)]="tradeInput" type="text" placeholder="Percentage..." />
+    <select id="timeInForce" [(ngModel)]="selectedTimeInForce">
+        <option value="day">Day</option>
+        <option value="gtc">Good Till Canceled (GTC)</option>
+        <option value="ioc">Immediate or Cancel (IOC)</option>
+    </select>
+    <h2>Review your trade before submission. "Time in force" represents the amount of time the 
+        <br>trade will remain active while awaitng fulfilment</h2>
+    <div class="trade-btns">
+        <button (click)="openTradeConfirmation()">ENTER</button>
+        <h1>- OR -</h1>
+        <button class="switch-btn">Enter the amount of shares you wish to purchase</button>
+    </div>
+
+    }
+    }
+    @else{
+    <div class="confirmation">
+        <h2>Would you like to submit this trade?</h2>
+        <div class="final-trade-info">
+            <h1>Shares: {{tradeInput}}</h1>
+            <h1>Time in force: {{selectedTimeInForce}}</h1>
+            <h1>Total price of trade: ${{totalPriceOfTrade || ' Calculating...'}}</h1>
+        </div>
+        <button class="confirm-btn" (click)="confirmTrade()">YES</button>
+        <button (click)="denyTrade()">NO</button>
+    </div>
+    }
+
+</div>

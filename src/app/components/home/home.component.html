@@ -1,6 +1,27 @@
 <div class="home-container">
-    <button>Check Positions</button>
-    <button>Trade Stock</button>
-    <button>News</button>
+    <div class="home-btns">
+        <button routerLink="/check-positions">Check Assets</button>
+        <button>Trade Stock</button>
+        <button>News</button>
+    </div>
 
+    <div class="search-and-button">
+        <input type="text" placeholder="Search Assets..."
+         (input)="onSearchInputChange()" [(ngModel)]="searchInput">
+    </div>
+
+    <div class="acct-status">
+        @if(loginAssetRetrievalStatus){
+            <h1>Connected to Alpaca Services</h1>
+            <img><img />
+        }
+    </div>
+    <div class="search-asset-box" (scroll)="onScroll($event)">
+        @for(asset of activeAssets$ | async; track asset) {
+            <app-asset class="searched-assets" [assetData]="asset" />
+        }
+        @if(isLoading$ | async){
+            <div class="loading-spinner">Loading...</div>
+        }
+    </div>
 </div>

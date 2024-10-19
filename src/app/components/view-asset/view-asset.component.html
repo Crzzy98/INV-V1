@@ -1,0 +1,24 @@
+<div class="view-asset">
+    <h2 class="asset-name">{{ name }}</h2>
+    <ul class="asset-info">
+      <li class="id"><strong>ID:</strong> {{ id }}</li>
+      <li class="class"><strong>Class:</strong> {{ class }}</li>
+      <li class="exchange"><strong>Exchange:</strong> {{ exchange }}</li>
+      <li class="symbol"><strong>Symbol:</strong> {{ symbol }}</li>
+      <li class="status"><strong>Status:</strong> {{ status }}</li>
+      <li class="tradable"><strong>Tradable:</strong> {{ tradable ? 'Yes' : 'No' }}</li>
+      <li class="marginable"><strong>Marginable:</strong> {{ marginable ? 'Yes' : 'No' }}</li>
+      <li class="maintenance-margin"><strong>Maintenance Margin Requirement:</strong> {{ maintenance_margin_requirement }}%</li>
+      <li class="margin-long"><strong>Margin Requirement (Long):</strong> {{ margin_requirement_long }}%</li>
+      <li class="margin-short"><strong>Margin Requirement (Short):</strong> {{ margin_requirement_short }}%</li>
+      <li class="shortable"><strong>Shortable:</strong> {{ shortable ? 'Yes' : 'No' }}</li>
+      <li class="easy-to-borrow"><strong>Easy to Borrow:</strong> {{ easy_to_borrow ? 'Yes' : 'No' }}</li>
+      <li class="fractionable"><strong>Fractionable:</strong> {{ fractionable ? 'Yes' : 'No' }}</li>      
+    </ul>
+    <div class="asset-btns">
+      <button (click)="startNormalTrade()" class="trade-btn">BUY</button>
+      <button (click)="startAutoTrade()" class="auto-trade-btn">Setup Auto Trade</button>
+      <button  class="sell-btn">SELL</button>
+    </div>
+
+</div>

@@ -1,0 +1,14 @@
+<!-- implemnt carousel desingn for Delayed/Now -->
+<div class="trade-view-page">
+<div class="final-trade-info">
+    <h1>Symbol: {{nameOfAsset || 'Oops... It seems your trade data failed to load \n Please go back to home and try again'}}</h1>
+    <h1>Shares: {{totalShares}}</h1>
+    <h1>Time in force: {{selectedTimeInForce}}</h1>
+    <h1>Total price of trade: ${{totalPriceOfTrade || ' Calculating...'}}</h1>
+</div>
+<div class="view-trade-btns" >
+    <button (click)="cancelTrade()">CANCEL TRADE</button>
+    <button (click)="submitTradeNow()">SUBMIT TRADE</button>
+
+</div>
+</div>

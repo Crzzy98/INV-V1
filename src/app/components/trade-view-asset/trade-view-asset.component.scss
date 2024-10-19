@@ -1,0 +1,50 @@
+.trade-view-asset{
+    justify-content: center;
+    min-width: 50vw;
+    max-height: 30vh;
+    border: .5px solid green;
+    padding: 0 20px 0 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+.id{
+    color: gold;
+}
+.symbol{
+    color: gold;
+}
+.status{
+    color: gold;
+}
+.tradable{
+    color: gold;
+}
+.class{
+    color: gold;
+}
+.exchange{
+    color:gold
+}
+li{
+    list-style-type: none;
+    padding-bottom: 10px;
+}
+
+.asset-btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+.asset-name{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-bottom: 1px solid green;
+    color: gold;
+    font-size: 20px;
+    padding: 0 50px 0 50px;
+}

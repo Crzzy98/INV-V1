@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StockComponent } from './stock.component';
+import { ViewPositionComponent } from './view-position.component';
 
-describe('StockComponent', () => {
-  let component: StockComponent;
-  let fixture: ComponentFixture<StockComponent>;
+describe('ViewPositionComponent', () => {
+  let component: ViewPositionComponent;
+  let fixture: ComponentFixture<ViewPositionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StockComponent]
+      imports: [ViewPositionComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(StockComponent);
+    fixture = TestBed.createComponent(ViewPositionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

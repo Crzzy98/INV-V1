@@ -3,3 +3,15 @@ body{
     background-color: black;
     color: limegreen;
 }
+
+a {
+    color: inherit; /* This will make the link color the same as the parent text */
+    text-decoration: none; /* This removes the underline */
+  }
+
+  @font-face {
+    font-family: 'Game';
+    src: url('/assets/fonts/Game-Font.ttf') format('truetype');
+
+  }
+  

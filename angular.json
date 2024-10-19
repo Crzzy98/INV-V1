@@ -50,7 +50,13 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.js",
+                  "with": "src/environments/environment.prod.js"
+                }
+              ]
             },
             "development": {
               "optimization": false,
