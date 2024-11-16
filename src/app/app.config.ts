@@ -2,19 +2,25 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-import {provideStore} from '@ngrx/store';
+import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
-import {assetReducer} from './store/reducers/asset.reducer';
-import {AssetEffects} from './store/effects/asset.effects';
+import { assetReducer } from './store/reducers/asset.reducer';
+import { AssetEffects } from './store/effects/asset.effects';
 import { AssetService } from './services/asset.service';
+import { provideClientHydration } from '@angular/platform-browser';
+import { defineCustomElements } from '../../node_modules/first-stencil/loader';
+
+defineCustomElements(window);
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideClientHydration(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-     provideHttpClient(),
-     provideStore({assets: assetReducer}),
-     provideEffects(AssetEffects),
-      AssetService
-    ]
+    provideHttpClient(),
+    provideStore({ assets: assetReducer }),
+    provideEffects(AssetEffects),
+    AssetService,
+  ]
+
 };

@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@alpacahq/alpaca-trade-api": "^3.1.2",
+    "@alpacahq/alpaca-trade-api": "^1.4.2",
     "@angular/animations": "^18.1.0",
     "@angular/common": "^18.1.0",
     "@angular/compiler": "^18.1.0",
@@ -25,6 +25,7 @@
     "@ngrx/store-devtools": "^18.0.2",
     "axios": "^1.7.7",
     "express": "^4.19.2",
+    "first-stencil": "file:first-stencil-0.0.1.tgz",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.14",
     "tslib": "^2.3.0",

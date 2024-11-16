@@ -1,4 +1,3 @@
-const alpaca = require('../alpaca.config.js')
 const axios = require('axios')
 const env = require('../../environments/environment')
 
