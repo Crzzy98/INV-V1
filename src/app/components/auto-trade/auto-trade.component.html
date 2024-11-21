@@ -2,8 +2,13 @@
     <h1>Use the prompt below to confiugre your automated trade</h1>
     <form id="auto-trade-form">
         <div class="form-item">
-            <input type="text" required placeholder="Amount of Shares">
-            <div class="error" id="messageError">Message is required</div>
+            <input type="number" required placeholder="Amount of Shares" [(ngModel)]="shareAmount">
+            <div class="error" id="messageError">Share amount is required</div>
         </div>
+        <div class="form-item">
+            <input type="text" required placeholder="Sell At Price" [(ngModel)]="limitPrice">
+            <div class="error" id="messageError">"Sell at" price is required</div>
+        </div>
+       <button class="form-btn" onclick="storeAutoTrade()">SUBMIT AUTO TRADE</button>
     </form>
 </div>
