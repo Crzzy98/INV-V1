@@ -1,9 +1,29 @@
 <div class="auto-trade-page-container">
-    <h1>Use the prompt below to confiugre your automated trade</h1>
+    <h1>Use the prompt below to configure your automated trade</h1>
     <form id="auto-trade-form">
         <div class="form-item">
             <input type="number" required placeholder="Amount of Shares" [(ngModel)]="shareAmount">
             <div class="error" id="messageError">Share amount is required</div>
+            <div class="slider-container">
+                <div class="slider-labels">
+                  <span class="label">Low Risk</span>
+                  <span class="label">Medium Risk</span>
+                  <span class="label">High Risk</span>
+                </div>
+                
+                <mat-slider class="risk-slider" 
+                            min="1" 
+                            max="5" 
+                            step="0.5"
+                            [displayWith]="formatLabel">
+                  <input matSliderThumb 
+                         [(ngModel)]="riskSliderValue"
+                         (valueChange)="onRiskValueChange($event)">
+                </mat-slider>
+                
+                <div class="selected-risk">Selected Level of Risk: {{getCurrentRiskLabel()}}</div>
+              </div>
+              
         </div>
         <div class="form-item">
             <input type="text" required placeholder="Sell At Price" [(ngModel)]="limitPrice">

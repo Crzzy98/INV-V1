@@ -1,0 +1,54 @@
+.slider-labels{
+    width: 80vw;
+    justify-content: center;
+}
+.risk-slider{
+    justify-content: center;
+    width: 80vw;
+    height: 48px;
+
+       // Customize the track color
+       ::ng-deep .mat-slider-track-background {
+        background-color: #e0e0e0;
+      }
+      
+      // Customize the selection color
+      ::ng-deep .mat-slider-track-fill {
+        background-color: #2196F3;
+      }
+      
+      // Customize the thumb
+      ::ng-deep .mat-slider-thumb {
+        background-color: #2196F3;
+        width: 20px;
+        height: 20px;
+        
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+    
+    // Style the labels
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      
+      .label {
+        font-size: 14px;
+        color: #666;
+        transition: color 0.3s ease;
+        
+        &.active {
+          color: #2196F3;
+          font-weight: bold;
+        }
+      }
+    }
+    
+    .selected-risk {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+    }

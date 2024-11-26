@@ -38,7 +38,6 @@ export class AssetService {
     );
   }
 
-
   getLoadedAssets(): Observable<any[]> {
     return this.loadedAssetsSubject.asObservable();
   }
@@ -76,7 +75,6 @@ export class AssetService {
       })
     );
   }
-
 
   loadMoreAssets(startIndex: number, endIndex: number): Observable<Asset[]> {
     const currentAssets = this.allAssetsSubject.value;

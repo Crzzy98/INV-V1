@@ -22,20 +22,9 @@ import env from '../../../environments/environment';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
+
+//Controls home page funtionality
 export class HomeComponent implements OnInit {
-
-  //create c for placing order(s) and configuring auto orders/sells
-  //Create graph component for visualizing market data
-  //Make market data component
-  //include crucial market data in trade components 
-
-  //set auto sell price
-  //set auto buy price 
-  //set frequency per day of trades
-  //view yearly trend graph of each position
-  //Implement CSP headers
-  //SSL/TLS: Configure HTTPS for secure connections.
-  //Implement HTTP Strict Transport Security
 
   activeAssets$: Observable<Asset[]>;
   isLoading$: Observable<boolean>;
