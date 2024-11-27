@@ -38,14 +38,10 @@ export class AutoTradeComponent {
 
   // Define risk levels with their corresponding values
   possibleRiskLevels = {
-    low: { min: 1, max: 2.5, label: 'Low Risk' },
-    medium: { min: 2.5, max: 3.5, label: 'Medium Risk' },
-    high: { min: 3.5, max: 5, label: 'High Risk' }
+    low: { min: 0, max: 0, label: 'Low Risk' },
+    medium: { min: 1, max: 1, label: 'Medium Risk' },
+    high: { min: 2, max: 2, label: 'High Risk' }
   };
-  // Format the display value
-  formatLabel(value: number): string {
-    return this.getCurrentRiskLabel(value);
-  }
   // Get the current risk label based on value
   getCurrentRiskLabel(value: number = this.riskSliderValue): string {
     if (value <= this.possibleRiskLevels.low.max) {
@@ -55,6 +51,10 @@ export class AutoTradeComponent {
     } else {
       return this.possibleRiskLevels.high.label;
     }
+  }
+  // Format the display value
+  formatLabel(value: number): string {
+    return this.getCurrentRiskLabel(value);
   }
   // Handle value changes
   onRiskValueChange(value: number) {

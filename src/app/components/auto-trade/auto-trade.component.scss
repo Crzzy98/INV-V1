@@ -1,54 +1,90 @@
-.slider-labels{
-    width: 80vw;
-    justify-content: center;
+.slider-labels {
+  width: 80vw;
+  justify-content: center;
 }
-.risk-slider{
-    justify-content: center;
-    width: 80vw;
-    height: 48px;
 
-       // Customize the track color
-       ::ng-deep .mat-slider-track-background {
-        background-color: #e0e0e0;
-      }
-      
-      // Customize the selection color
-      ::ng-deep .mat-slider-track-fill {
-        background-color: #2196F3;
-      }
-      
-      // Customize the thumb
-      ::ng-deep .mat-slider-thumb {
-        background-color: #2196F3;
-        width: 20px;
-        height: 20px;
-        
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-    }
+.risk-slider {
+  justify-content: center;
+  width: 80vw;
+  height: 45px;
+
+  // Increase track height
+  ::ng-deep .mat-slider-horizontal .mat-slider-wrapper {
+      height: 12px;  // Increased height for the track
+  }
+
+  // Customize the track background
+  ::ng-deep .mat-slider-track-background {
+      background-color: #e0e0e089;
+      height: 12px;  // Match the wrapper height
+  }
     
-    // Style the labels
-    .slider-labels {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 10px;
+  // Customize the selection color with gradient
+  ::ng-deep .mat-slider-track-fill {
+      height: 12px;  // Match the wrapper height
+      background: linear-gradient(to right, 
+          #4CAF50 0%,    // Green for low risk
+          #FFC107 50%,   // Yellow for medium risk
+          #F44336 100%   // Red for high risk
+      );
+  }
+    
+  // Larger thumb
+  ::ng-deep .mat-slider-thumb {
+      width: 28px;
+      height: 28px;
+      background-color: #fff;
+      border: 2px solid #2196F3;
+      bottom: -14px;  // Adjust position for larger thumb
       
-      .label {
-        font-size: 14px;
-        color: #666;
-        transition: color 0.3s ease;
-        
-        &.active {
+      &:hover {
+          transform: scale(1.1);
+      }
+  }
+
+  // Adjust thumb-label for discrete values
+  ::ng-deep .mat-slider-thumb-label {
+      width: 45px;
+      height: 45px;
+      background-color: #2196F3;
+      
+      span {
+          font-size: 14px;
+      }
+  }
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+    
+  .label {
+      font-size: 14px;
+      color: #666;
+      transition: color 0.3s ease;
+      
+      &.active {
           color: #2196F3;
           font-weight: bold;
-        }
       }
-    }
-    
-    .selected-risk {
-      margin-top: 10px;
-      font-size: 16px;
-      color: #333;
-    }
+
+      &.low {
+          color: #4CAF50;
+      }
+
+      &.medium {
+          color: #FFC107;
+      }
+
+      &.high {
+          color: #F44336;
+      }
+  }
+}
+
+.selected-risk {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
