@@ -33,20 +33,20 @@ export class AutoTradeComponent {
   shareAmount: number = 0;
   limitPrice: number = 0; // Price at which the trade is market
   symbol: string = ''
-  riskLevel: string = ''
-  riskSliderValue: number = 1.5
+  riskLevel: number = 0
+  riskSliderValue: number = 0
 
   // Define risk levels with their corresponding values
   possibleRiskLevels = {
-    low: { min: 0, max: 0, label: 'Low Risk' },
-    medium: { min: 1, max: 1, label: 'Medium Risk' },
-    high: { min: 2, max: 2, label: 'High Risk' }
+    low: { min: 0, value: 0, label: 'Low Risk' },
+    medium: { min: 1, value: 1, label: 'Medium Risk' },
+    high: { min: 2, value: 2, label: 'High Risk' }
   };
   // Get the current risk label based on value
   getCurrentRiskLabel(value: number = this.riskSliderValue): string {
-    if (value <= this.possibleRiskLevels.low.max) {
+    if (value <= this.possibleRiskLevels.low.value) {
       return this.possibleRiskLevels.low.label;
-    } else if (value <= this.possibleRiskLevels.medium.max) {
+    } else if (value <= this.possibleRiskLevels.medium.value) {
       return this.possibleRiskLevels.medium.label;
     } else {
       return this.possibleRiskLevels.high.label;
@@ -62,6 +62,8 @@ export class AutoTradeComponent {
     console.log("Risk value: " + this.riskSliderValue)
     // Update active label styling
     this.updateActiveLabel();
+    //update risk level
+    this.riskLevel = value
   }
 
   // Update the active label styling

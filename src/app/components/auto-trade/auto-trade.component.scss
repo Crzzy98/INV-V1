@@ -1,6 +1,29 @@
 .slider-labels {
   width: 80vw;
   justify-content: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+    
+  .label {
+      font-size: 2em;
+      color: #666;
+      transition: color 0.3s ease;
+      
+      &.active {
+        &.low{
+          color: #4CAF50;  // Green highlight for active label
+        }
+        &.medium{
+          color: #f9ef63;  // Yellow highlight for active label
+
+        }
+        &.high{
+          color: #f62222;  // Red highlight for active label
+        }
+          font-weight: bold;
+      }
+  }
 }
 
 .risk-slider {
@@ -10,75 +33,73 @@
 
   // Increase track height
   ::ng-deep .mat-slider-horizontal .mat-slider-wrapper {
-      height: 12px;  // Increased height for the track
+      height: 40px;
   }
 
   // Customize the track background
   ::ng-deep .mat-slider-track-background {
       background-color: #e0e0e089;
-      height: 12px;  // Match the wrapper height
+      height: 40px;
   }
     
-  // Customize the selection color with gradient
+  // Customize the selection color
   ::ng-deep .mat-slider-track-fill {
-      height: 12px;  // Match the wrapper height
-      background: linear-gradient(to right, 
-          #4CAF50 0%,    // Green for low risk
-          #FFC107 50%,   // Yellow for medium risk
-          #F44336 100%   // Red for high risk
-      );
+      height: 40px;
+  }
+
+  // Style based on slider value
+  &[aria-valuenow="0"] {
+    ::ng-deep {
+      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
+        background-color: #4CAF50 !important;  // Green for low risk
+      }
+      .mat-slider-thumb {
+        border-color: #4CAF50 !important;
+      }
+    }
+  }
+
+  &[aria-valuenow="1"] {
+    ::ng-deep {
+      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
+        background-color: #FFC107 !important;  // Yellow for medium risk
+      }
+      .mat-slider-thumb {
+        border-color: #FFC107 !important;
+      }
+    }
+  }
+
+  &[aria-valuenow="2"] {
+    ::ng-deep {
+      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
+        background-color: #F44336 !important;  // Red for high risk
+      }
+      .mat-slider-thumb {
+        border-color: #F44336 !important;
+      }
+    }
   }
     
   // Larger thumb
   ::ng-deep .mat-slider-thumb {
       width: 28px;
       height: 28px;
-      background-color: #fff;
-      border: 2px solid #2196F3;
-      bottom: -14px;  // Adjust position for larger thumb
+      bottom: -14px;
       
       &:hover {
           transform: scale(1.1);
       }
   }
 
-  // Adjust thumb-label for discrete values
+  // Adjust thumb-label
   ::ng-deep .mat-slider-thumb-label {
       width: 45px;
       height: 45px;
-      background-color: #2196F3;
       
       span {
           font-size: 14px;
-      }
-  }
-}
-
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-    
-  .label {
-      font-size: 14px;
-      color: #666;
-      transition: color 0.3s ease;
-      
-      &.active {
-          color: #2196F3;
-          font-weight: bold;
-      }
-
-      &.low {
-          color: #4CAF50;
-      }
-
-      &.medium {
-          color: #FFC107;
-      }
-
-      &.high {
-          color: #F44336;
+          color: white;
       }
   }
 }

@@ -6,9 +6,9 @@
             <div class="error" id="messageError">Share amount is required</div>
             <div class="slider-container">
                 <div class="slider-labels">
-                  <span class="label">Low Risk</span>
-                  <span class="label">Medium Risk</span>
-                  <span class="label">High Risk</span>
+                    <span class="label low" [class.active]="riskSliderValue === 0">Low Risk</span>
+                    <span class="label medium" [class.active]="riskSliderValue === 1">Medium Risk</span>
+                    <span class="label high" [class.active]="riskSliderValue === 2">High Risk</span>
                 </div>
                 
                 <mat-slider class="risk-slider" 

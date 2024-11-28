@@ -9,7 +9,7 @@ export class AutoTradeService {
 
   http = inject(HttpClient);
 
-  storeAutoTradeData(symbol: string, shareAmount: number, riskLevel:string) {
+  storeAutoTradeData(symbol: string, shareAmount: number, riskLevel:number) {
     try {
       //Store data using service call and message broker
       this.http.post(environment.serverUrl ,  { symbol, shareAmount }).subscribe((response: any) => {
