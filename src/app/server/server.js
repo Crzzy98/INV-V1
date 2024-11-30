@@ -153,7 +153,12 @@ app.get('/market-data', async (req, res) => {
 
 //Endpoint serves as filter for calling auto-trade functionality
 app.post('/auto-trade', async(req, res) => {
-  
+  try{
+    console.log("Auto trade endpoint hit")
+    console.log("Auto trade Data:" + req.body)
+  }catch (error){
+    console.log("Error while storing auto trade data: " + error )
+  }
 })
 
 app.listen(port,

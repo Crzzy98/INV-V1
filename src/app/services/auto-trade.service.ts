@@ -9,12 +9,15 @@ export class AutoTradeService {
 
   http = inject(HttpClient);
 
-  storeAutoTradeData(symbol: string, shareAmount: number, riskLevel:number) {
+  storeAutoTradeData(symbol: string, shareAmount: number,
+    currentPrice: number, riskLevel: number) {
     try {
       //Store data using service call and message broker
-      this.http.post(environment.serverUrl ,  { symbol, shareAmount }).subscribe((response: any) => {
-        console.log("Trade data stored successfully:", response);
-      });
+      this.http.post(environment.serverUrl,
+        { symbol, shareAmount, currentPrice, riskLevel })
+        .subscribe((response: any) => {
+          console.log("Trade data stored successfully:", response);
+        });
       //Recieve Confirmation response
     } catch (e) {
       console.log("Error while storing trade data")

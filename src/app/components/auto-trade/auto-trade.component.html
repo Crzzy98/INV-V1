@@ -1,5 +1,5 @@
 <div class="auto-trade-page-container">
-    <h1>Use the prompt below to configure your automated trade</h1>
+    <h1 class="auto-trade-header">Use the prompt below to configure your automated trade</h1>
     <form id="auto-trade-form">
         <div class="form-item">
             <input type="number" required placeholder="Amount of Shares" [(ngModel)]="shareAmount">
@@ -10,26 +10,18 @@
                     <span class="label medium" [class.active]="riskSliderValue === 1">Medium Risk</span>
                     <span class="label high" [class.active]="riskSliderValue === 2">High Risk</span>
                 </div>
-                
-                <mat-slider class="risk-slider" 
-                            min="0" 
-                            max="2" 
-                            step="1"
-                            [discrete]="true"
-                            [displayWith]="formatLabel">
-                  <input matSliderThumb 
-                         [(ngModel)]="riskSliderValue"
-                         (valueChange)="onRiskValueChange($event)">
+
+                <mat-slider class="risk-slider" min="0" max="2" step="1" 
+                [discrete]="true" [displayWith]="formatLabel">
+                    <input matSliderThumb [(ngModel)]="riskSliderValue" (ngModelChange)="onRiskValueChange($event)">
                 </mat-slider>
-                
+
                 <div class="selected-risk">Selected Level of Risk: {{getCurrentRiskLabel()}}</div>
-              </div>
-              
+            </div>
+            <div class="form-btns">
+                <button (click)="cancelAutoTrade()">CANCEL AUTO TRADE</button>
+                <button (click)="storeAutoTrade()">SUBMIT AUTO TRADE</button>
+            </div>
         </div>
-        <div class="form-item">
-            <input type="text" required placeholder="Sell At Price" [(ngModel)]="limitPrice">
-            <div class="error" id="messageError">"Sell at" price is required</div>
-        </div>
-       <button class="form-btn" onclick="storeAutoTrade()">SUBMIT AUTO TRADE</button>
     </form>
 </div>

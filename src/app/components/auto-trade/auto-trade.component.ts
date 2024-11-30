@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AutoTradeService } from '../../services/auto-trade.service';
 import { AssetService } from '../../services/asset.service';
 import { MatSliderModule } from '@angular/material/slider';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auto-trade',
@@ -28,6 +29,8 @@ export class AutoTradeComponent {
 
   //Setting Trade parameters 
   //Risk level: Low (5% deviation from current market price), medium(15%), high(25%)
+  router = inject(Router)
+  private cdr = inject(ChangeDetectorRef);
 
   //Buy variables
   shareAmount: number = 0;
@@ -59,11 +62,15 @@ export class AutoTradeComponent {
   // Handle value changes
   onRiskValueChange(value: number) {
     this.riskSliderValue = value;
+    //update risk level
+    this.riskLevel = value
+
+    console.log("Raw value: " + value)
     console.log("Risk value: " + this.riskSliderValue)
     // Update active label styling
     this.updateActiveLabel();
-    //update risk level
-    this.riskLevel = value
+    this.cdr.detectChanges();
+
   }
 
   // Update the active label styling
@@ -88,9 +95,11 @@ export class AutoTradeComponent {
   assetService = inject(AssetService)
 
   //Method stores current trade info in universal state for processing 
+  //and sends data to server
   async storeAutoTrade(): Promise<void> {
     try {
       const currentAssetSymbol: string = this.assetService.getInFocusAsset().symbol;
+      const currentAssetPrice: number = this.assetService.getInFocusAsset().price;
 
       // Validate inputs before proceeding
       if (!currentAssetSymbol || !this.shareAmount) {
@@ -98,7 +107,8 @@ export class AutoTradeComponent {
       }
 
       // Send request to service to store trade data
-      await this.autoTradeService.storeAutoTradeData(this.symbol, this.shareAmount, this.riskLevel);
+      await this.autoTradeService.storeAutoTradeData(currentAssetSymbol, this.shareAmount,
+        currentAssetPrice, this.riskLevel);
 
     } catch (error) {
       // Handle errors appropriately
@@ -107,7 +117,9 @@ export class AutoTradeComponent {
     }
   }
 
-
+  cancelAutoTrade() {
+    this.router.navigate(['/view-asset'])
+  }
 }
 
 //Universal state is maintaned via mesage broker services (RabbitMQ)

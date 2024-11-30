@@ -1,28 +1,72 @@
+.auto-trade-page-container {
+  justify-content: center;
+  align-items: center;
+}
+
+.auto-trade-header {
+  justify-content: center;
+  margin: 0 10vw 7vh 10vw;
+  text-align: center;
+}
+
+.auto-trade-form {
+  justify-content: center;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 20vw;
+    height: 7vh;
+    font-size: 1em;
+  }
+  button{
+    width: 15vw;
+    height: 5vh;
+    margin-left: 2vw;
+  }
+}
+.form-btns{
+  margin-top: 10vh;
+}
+.error{
+  margin: .5vh 0 10vh 0;
+  color: #F44336;
+
+}
+
 .slider-labels {
   width: 80vw;
   justify-content: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
-    
-  .label {
-      font-size: 2em;
-      color: #666;
-      transition: color 0.3s ease;
-      
-      &.active {
-        &.low{
-          color: #4CAF50;  // Green highlight for active label
-        }
-        &.medium{
-          color: #f9ef63;  // Yellow highlight for active label
 
-        }
-        &.high{
-          color: #f62222;  // Red highlight for active label
-        }
-          font-weight: bold;
+  .label {
+    font-size: 2em;
+    color: #666;
+    transition: color 0.3s ease;
+
+    &.active {
+      &.low {
+        color: #4CAF50; // Green highlight for active label
       }
+
+      &.medium {
+        color: #f9ef63; // Yellow highlight for active label
+
+      }
+
+      &.high {
+        color: #f62222; // Red highlight for active label
+      }
+
+      font-weight: bold;
+    }
   }
 }
 
@@ -33,26 +77,30 @@
 
   // Increase track height
   ::ng-deep .mat-slider-horizontal .mat-slider-wrapper {
-      height: 40px;
+    height: 40px;
   }
 
   // Customize the track background
   ::ng-deep .mat-slider-track-background {
-      background-color: #e0e0e089;
-      height: 40px;
+    background-color: #e0e0e089;
+    height: 40px;
   }
-    
+
   // Customize the selection color
   ::ng-deep .mat-slider-track-fill {
-      height: 40px;
+    height: 40px;
   }
 
   // Style based on slider value
   &[aria-valuenow="0"] {
     ::ng-deep {
-      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
-        background-color: #4CAF50 !important;  // Green for low risk
+
+      .mat-slider-track-fill,
+      .mat-slider-thumb,
+      .mat-slider-thumb-label {
+        background-color: #4CAF50 !important; // Green for low risk
       }
+
       .mat-slider-thumb {
         border-color: #4CAF50 !important;
       }
@@ -61,9 +109,13 @@
 
   &[aria-valuenow="1"] {
     ::ng-deep {
-      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
-        background-color: #FFC107 !important;  // Yellow for medium risk
+
+      .mat-slider-track-fill,
+      .mat-slider-thumb,
+      .mat-slider-thumb-label {
+        background-color: #FFC107 !important; // Yellow for medium risk
       }
+
       .mat-slider-thumb {
         border-color: #FFC107 !important;
       }
@@ -72,35 +124,39 @@
 
   &[aria-valuenow="2"] {
     ::ng-deep {
-      .mat-slider-track-fill, .mat-slider-thumb, .mat-slider-thumb-label {
-        background-color: #F44336 !important;  // Red for high risk
+
+      .mat-slider-track-fill,
+      .mat-slider-thumb,
+      .mat-slider-thumb-label {
+        background-color: #F44336 !important; // Red for high risk
       }
+
       .mat-slider-thumb {
         border-color: #F44336 !important;
       }
     }
   }
-    
+
   // Larger thumb
   ::ng-deep .mat-slider-thumb {
-      width: 28px;
-      height: 28px;
-      bottom: -14px;
-      
-      &:hover {
-          transform: scale(1.1);
-      }
+    width: 28px;
+    height: 28px;
+    bottom: -14px;
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   // Adjust thumb-label
   ::ng-deep .mat-slider-thumb-label {
-      width: 45px;
-      height: 45px;
-      
-      span {
-          font-size: 14px;
-          color: white;
-      }
+    width: 45px;
+    height: 45px;
+
+    span {
+      font-size: 14px;
+      color: white;
+    }
   }
 }
 
