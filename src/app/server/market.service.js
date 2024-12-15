@@ -27,6 +27,25 @@ async function getMarketData(symbols, timeframe = '1Day') {
   }
 }
 
+async function getMarketPrice(symbol) {
+  try {
+    const marketData = await getMarketData([symbol]);
+    console.log('Market Data Response:', marketData);
+    
+    if (marketData && marketData.bars && marketData.bars[symbol]) {
+      const closePrice = marketData.bars[symbol].c;
+      console.log(`${symbol} Close Price:`, closePrice);
+      return closePrice;
+    } else {
+      throw new Error(`No data available for ${symbol}`);
+    }
+  } catch (error) {
+    console.error('Error fetching market price:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   getMarketData,
+  getMarketPrice
 };

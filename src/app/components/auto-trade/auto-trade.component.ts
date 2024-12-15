@@ -4,11 +4,16 @@ import { AutoTradeService } from '../../services/auto-trade.service';
 import { AssetService } from '../../services/asset.service';
 import { MatSliderModule } from '@angular/material/slider';
 import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { MarketData } from '../../models/marketData.model';
+import env from '../../../environments/environment.js';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-auto-trade',
   standalone: true,
-  imports: [FormsModule, MatSliderModule],
+  imports: [FormsModule, MatSliderModule, CommonModule],
   templateUrl: './auto-trade.component.html',
   styleUrl: './auto-trade.component.scss'
 })
@@ -56,23 +61,20 @@ export class AutoTradeComponent {
     }
   }
   // Format the display value
-  formatLabel(value: number): string {
+  formatLabel = (value: number): string => {
     return this.getCurrentRiskLabel(value);
   }
   // Handle value changes
-  onRiskValueChange(value: number) {
-    this.riskSliderValue = value;
-    //update risk level
-    this.riskLevel = value
-
-    console.log("Raw value: " + value)
-    console.log("Risk value: " + this.riskSliderValue)
-    // Update active label styling
-    this.updateActiveLabel();
-    this.cdr.detectChanges();
-
+  onRiskValueChange(value: number | null) {
+    if (value !== null) {
+      this.riskSliderValue = value;
+      this.riskLevel = value;
+      console.log("Raw value: " + value);
+      console.log("Risk value: " + this.riskSliderValue);
+      this.updateActiveLabel();
+      this.cdr.detectChanges();
+    }
   }
-
   // Update the active label styling
   private updateActiveLabel() {
     const labels = document.querySelectorAll('.label');
@@ -93,13 +95,19 @@ export class AutoTradeComponent {
 
   autoTradeService = inject(AutoTradeService)
   assetService = inject(AssetService)
+  http = inject(HttpClient)
 
   //Method stores current trade info in universal state for processing 
   //and sends data to server
   async storeAutoTrade(): Promise<void> {
     try {
+
       const currentAssetSymbol: string = this.assetService.getInFocusAsset().symbol;
-      const currentAssetPrice: number = this.assetService.getInFocusAsset().price;
+      const currentAssetPrice = await firstValueFrom(this.http.get<{ price: number }>(
+        `${env.serverUrl}/market-data-price`,
+        { params: { symbol: currentAssetSymbol } }
+      ))
+      console.log("Symbol: " + currentAssetSymbol + " Shares:  " + this.shareAmount)
 
       // Validate inputs before proceeding
       if (!currentAssetSymbol || !this.shareAmount) {
@@ -108,7 +116,7 @@ export class AutoTradeComponent {
 
       // Send request to service to store trade data
       await this.autoTradeService.storeAutoTradeData(currentAssetSymbol, this.shareAmount,
-        currentAssetPrice, this.riskLevel);
+        currentAssetPrice.price, this.riskLevel);
 
     } catch (error) {
       // Handle errors appropriately
@@ -120,6 +128,26 @@ export class AutoTradeComponent {
   cancelAutoTrade() {
     this.router.navigate(['/view-asset'])
   }
+  //Fetch market data from server
+  async getMarketPrice(symbol: string): Promise<number> {
+    try {
+      const response = await firstValueFrom(this.http.get<MarketData>(env.serverUrl + '/market-data', {
+        params: {
+          symbols: symbol
+        }
+      }));
+      console.log('Market Data Response:', response);
+      if (response && response.bars && response.bars[symbol]) {
+        const closePrice = response.bars[symbol].c;
+        console.log(`${symbol} Close Price:`, closePrice);
+        return closePrice;
+      } else {
+        throw new Error(`No data available for ${symbol}`);
+      }
+    } catch (error) {
+      console.error('Error fetching market data:', error);
+      throw error;
+    }
+  }
+  //Universal state is maintaned via mesage broker services (RabbitMQ)
 }
-
-//Universal state is maintaned via mesage broker services (RabbitMQ)

@@ -135,6 +135,8 @@ app.post("/create-order", async (req, res) => {
   }
 });
 
+
+//Market Data Endpoints
 app.get('/market-data', async (req, res) => {
   try {
     const { symbols } = req.query;
@@ -148,6 +150,24 @@ app.get('/market-data', async (req, res) => {
   } catch (error) {
     console.error('Error in market data route:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+app.get('/market-data-price', async (req, res) => {
+  try {
+    const { symbol } = req.query;
+    
+    if (!symbol) {
+      return res.status(400).json({ error: 'Symbol parameter is required' });
+    }
+
+    const price = await marketService.getMarketPrice(symbol);
+    res.json({price });
+  } catch (error) {
+    console.error('Error in market price route:', error);
+    res.status(500).json({ 
+      error: 'Internal server error',
+      message: error.message 
+    });
   }
 });
 

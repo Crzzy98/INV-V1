@@ -9,22 +9,7 @@ import { TradeViewAssetComponent } from '../trade-view-asset/trade-view-asset.co
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import env from '../../../environments/environment.js';
-
-interface MarketData {
-  bars: {
-    [symbol: string]: {
-      c: number;
-      h: number;
-      l: number;
-      n: number;
-      o: number;
-      t: string;
-      v: number;
-      vw: number;
-    };
-  };
-  next_page_token: string | null;
-}
+import { MarketData } from '../../models/marketData.model';
 
 @Component({
   selector: 'app-trade',
@@ -61,10 +46,14 @@ export class TradeComponent {
 
     try {
       //Retrieve current market price of asset
-      const marketPrice = await this.getMarketPrice(inFocusAsset.symbol)
+      const marketPrice = await firstValueFrom(this.http.get<{price: number}>(
+        `${env.serverUrl}/market-data-price`,
+        { params: { symbol: inFocusAsset.symbol }}
+      ));
+      
 
       //Calculate total cost of trade
-      this.totalPriceOfTrade = this.calculateTotalCostOfTrade(parseFloat(this.tradeInput), marketPrice)
+      this.totalPriceOfTrade = this.calculateTotalCostOfTrade(parseFloat(this.tradeInput), marketPrice.price)
       //Record price of current trade for use in other parts of the program
       this.tradeService.setInFocusTradePrice(this.totalPriceOfTrade)
       console.log('New Total cost of trade:' + this.totalPriceOfTrade)
@@ -122,26 +111,5 @@ export class TradeComponent {
   calculateTotalCostOfTrade(shareAmount: number, marketPriceOfAsset: number) {
     const totalCost = shareAmount * marketPriceOfAsset
     return totalCost
-  }
-
-  async getMarketPrice(symbol: string): Promise<number> {
-    try {
-      const response = await firstValueFrom(this.http.get<MarketData>(env.serverUrl + '/market-data', {
-        params: {
-          symbols: symbol
-        }
-      }));
-      console.log('Market Data Response:', response);
-      if (response && response.bars && response.bars[symbol] ) {
-        const closePrice = response.bars[symbol].c;
-        console.log(`${symbol} Close Price:`, closePrice);
-        return closePrice;
-      } else {
-        throw new Error(`No data available for ${symbol}`);
-      }
-    } catch (error) {
-      console.error('Error fetching market data:', error);
-      throw error;
-    }
   }
 }
