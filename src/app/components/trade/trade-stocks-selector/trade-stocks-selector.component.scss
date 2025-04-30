@@ -1,0 +1,34 @@
+.trade-selector-container {
+    justify-content: center;
+    align-items: center;
+    color: green;
+    display: flex;
+    flex-direction: column;
+    
+    h1 {
+        margin-bottom: 50px;
+        text-align: center;
+    }
+}
+
+.trade-selector-btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    button {
+        margin: 20px;
+        background-color: black;
+        border-color: white;
+        border-radius: .5px;
+        color: green;
+        font-size: 35px;
+        width: 250px;
+        height: 80px;
+        transition: transform 0.3s ease;
+    }
+    
+    button:hover {
+        transform: scale(1.1);
+    }
+}

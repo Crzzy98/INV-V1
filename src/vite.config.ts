@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
+import { resolve } from 'path';
 
 export default defineConfig({
   resolve: {
     alias: {
-      'first-stencil': '/node_modules/first-stencil',
+      'first-stencil': resolve(__dirname, '../node_modules/first-stencil'),
     }
   },
   build: {
@@ -17,7 +18,7 @@ export default defineConfig({
   server: {
     fs: {
       // Allow serving files from one level up from the package root
-      allow: ['..']
+      allow: ['..', '../node_modules']
     }
   }
 });

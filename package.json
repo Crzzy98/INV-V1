@@ -26,9 +26,12 @@
     "@ngrx/store": "^18.0.2",
     "@ngrx/store-devtools": "^18.0.2",
     "axios": "^1.7.7",
-    "express": "^4.19.2",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
     "first-stencil": "file:first-stencil-0.0.1.tgz",
     "rxjs": "~7.8.0",
+    "sqlite3": "^5.1.7",
     "swiper": "^11.1.14",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

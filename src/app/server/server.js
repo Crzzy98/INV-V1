@@ -180,6 +180,35 @@ app.post('/auto-trade', async(req, res) => {
     console.log("Error while storing auto trade data: " + error )
   }
 })
+// API Endpoints
+app.post('/post-auto-trades', (req, res) => {
+  const { symbol, shareAmount, riskLevel, limitPrice } = req.body;
+
+  db.run(
+      'INSERT INTO auto_trades (symbol, share_amount, risk_level, limit_price) VALUES (?, ?, ?, ?)',
+      [symbol, shareAmount, riskLevel, limitPrice],
+      function (err) {
+          if (err) {
+              res.status(500).json({ error: err.message });
+              return;
+          }
+          res.json({
+              id: this.lastID,
+              message: 'Auto trade stored successfully'
+          });
+      }
+  );
+});
+
+app.get('/get-auto-trades', (req, res) => {
+  db.all('SELECT * FROM auto_trades ORDER BY created_at DESC', [], (err, rows) => {
+      if (err) {
+          res.status(500).json({ error: err.message });
+          return;
+      }
+      res.json(rows);
+  });
+});
 
 app.listen(port,
   () => {

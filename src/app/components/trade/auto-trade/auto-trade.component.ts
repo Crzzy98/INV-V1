@@ -1,13 +1,13 @@
 import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AutoTradeService } from '../../services/auto-trade.service';
-import { AssetService } from '../../services/asset.service';
+import { AutoTradeService } from '../../../services/auto-trade.service';
+import { AssetService } from '../../../services/asset.service';
 import { MatSliderModule } from '@angular/material/slider';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { MarketData } from '../../models/marketData.model';
-import env from '../../../environments/environment.js';
+import { MarketData } from '../../../models/marketData.model';
+import env from '../../../../environments/environment.js';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -126,7 +126,7 @@ export class AutoTradeComponent {
   }
 
   cancelAutoTrade() {
-    this.router.navigate(['/view-asset'])
+    this.router.navigate(['/trade-stocks-selector'])
   }
   //Fetch market data from server
   async getMarketPrice(symbol: string): Promise<number> {
