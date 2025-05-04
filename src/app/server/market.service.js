@@ -1,3 +1,4 @@
+//Service Retrieves current market data for spcific asset
 const axios = require('axios');
 const env = require('../../environments/environment');
 
