@@ -42,6 +42,7 @@ testem.log
 Thumbs.db
 
 # Environment files
+/src/environment/*
 /src/environments/environment.js
 /src/environments/environment.*.js
-!/src/environments/environment.prod.js
+/src/environments/environment.prod.js
